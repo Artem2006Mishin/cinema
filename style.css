@@ -121,7 +121,7 @@ body {
 .cinema .seat:not(.seat--occupied):hover {
 	cursor: pointer;
 	transform: scale(1.2);
-	outline: 1px solid var(--white-clr);
+	/* outline: 1px solid var(--white-clr); */
 }
 
 .reservation__price span {
