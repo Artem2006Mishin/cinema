@@ -3,7 +3,109 @@
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<title>Document</title>
+		<title>Movie seats booking</title>
 	</head>
-	<body></body>
+	<body>
+		<div class="reservation">
+			<div class="container">
+				<div class="reservation__movie-selection">
+					<label>Pick a movie:</label>
+					<select id="movie-select">
+						<option value="10">Avengers: Endgame ($10)</option>
+						<option value="12">Joker ($12)</option>
+						<option value="8">Toy story 4 ($8)</option>
+						<option value="9">The Lion King ($9)</option>
+					</select>
+				</div>
+
+				<ul class="reservation__types-seats">
+					<li>
+						<div class="seat seat--unoccupied"></div>
+						<small>N/A</small>
+					</li>
+					<li>
+						<div class="seat seat--selected"></div>
+						<small>Selected</small>
+					</li>
+					<li>
+						<div class="seat seat--occupied"></div>
+						<small>Occupied</small>
+					</li>
+				</ul>
+
+				<div class="cinema">
+					<div class="cinema__screen"></div>
+					<div class="cinema__seats">
+						<div class="cinema__row">
+							<div class="seat"></div>
+							<div class="seat"></div>
+							<div class="seat"></div>
+							<div class="seat seat--occupied"></div>
+							<div class="seat"></div>
+							<div class="seat"></div>
+							<div class="seat"></div>
+							<div class="seat"></div>
+						</div>
+						<div class="cinema__row">
+							<div class="seat"></div>
+							<div class="seat"></div>
+							<div class="seat"></div>
+							<div class="seat seat--occupied"></div>
+							<div class="seat"></div>
+							<div class="seat"></div>
+							<div class="seat"></div>
+							<div class="seat"></div>
+						</div>
+						<div class="cinema__row">
+							<div class="seat"></div>
+							<div class="seat"></div>
+							<div class="seat"></div>
+							<div class="seat"></div>
+							<div class="seat"></div>
+							<div class="seat seat--occupied"></div>
+							<div class="seat"></div>
+							<div class="seat"></div>
+						</div>
+						<div class="cinema__row">
+							<div class="seat"></div>
+							<div class="seat"></div>
+							<div class="seat"></div>
+							<div class="seat"></div>
+							<div class="seat"></div>
+							<div class="seat seat--occupied"></div>
+							<div class="seat"></div>
+							<div class="seat"></div>
+						</div>
+						<div class="cinema__row">
+							<div class="seat"></div>
+							<div class="seat"></div>
+							<div class="seat"></div>
+							<div class="seat"></div>
+							<div class="seat seat--occupied"></div>
+							<div class="seat seat--occupied"></div>
+							<div class="seat"></div>
+							<div class="seat"></div>
+						</div>
+						<div class="cinema__row">
+							<div class="seat"></div>
+							<div class="seat seat--occupied"></div>
+							<div class="seat seat--occupied"></div>
+							<div class="seat seat--occupied"></div>
+							<div class="seat seat--occupied"></div>
+							<div class="seat"></div>
+							<div class="seat"></div>
+							<div class="seat"></div>
+						</div>
+					</div>
+				</div>
+
+				<p class="reservation__price">
+					You have selected
+					<span id="count">0</span> seats for a price of $<span id="total"
+						>0</span
+					>
+				</p>
+			</div>
+		</div>
+	</body>
 </html>
