@@ -1,0 +1,104 @@
+{
+	"movies": [
+		{
+			"id": "avengers-endgame",
+			"title": "Avengers: Endgame ($10)",
+			"price": 10
+		},
+		{
+			"id": "joker",
+			"title": "Joker ($12)",
+			"price": 12
+		},
+		{
+			"id": "toy-story",
+			"title": "Toy story 4 ($8)",
+			"price": 8
+		},
+		{
+			"id": "lion-king",
+			"title": "The Lion King ($9)",
+			"price": 9
+		}
+	],
+
+	"cinema": [
+		{
+			"movieId": "avengers-endgame",
+			"rows": [
+				{
+					"seats": [
+						{ "status": "occupied" },
+						{ "status": "occupied" },
+						{ "status": "free" },
+						{ "status": "free" },
+						{ "status": "occupied" },
+						{ "status": "free" },
+						{ "status": "free" },
+						{ "status": "free" }
+					]
+				},
+				{
+					"seats": [
+						{ "status": "free" },
+						{ "status": "free" },
+						{ "status": "free" },
+						{ "status": "free" },
+						{ "status": "free" },
+						{ "status": "free" },
+						{ "status": "occupied" },
+						{ "status": "occupied" }
+					]
+				},
+				{
+					"seats": [
+						{ "status": "free" },
+						{ "status": "free" },
+						{ "status": "free" },
+						{ "status": "free" },
+						{ "status": "free" },
+						{ "status": "free" },
+						{ "status": "free" },
+						{ "status": "free" }
+					]
+				},
+				{
+					"seats": [
+						{ "status": "free" },
+						{ "status": "free" },
+						{ "status": "free" },
+						{ "status": "free" },
+						{ "status": "free" },
+						{ "status": "free" },
+						{ "status": "occupied" },
+						{ "status": "occupied" }
+					]
+				},
+				{
+					"seats": [
+						{ "status": "free" },
+						{ "status": "free" },
+						{ "status": "free" },
+						{ "status": "free" },
+						{ "status": "free" },
+						{ "status": "free" },
+						{ "status": "free" },
+						{ "status": "free" }
+					]
+				},
+				{
+					"seats": [
+						{ "status": "free" },
+						{ "status": "free" },
+						{ "status": "free" },
+						{ "status": "occupied" },
+						{ "status": "occupied" },
+						{ "status": "free" },
+						{ "status": "free" },
+						{ "status": "free" }
+					]
+				}
+			]
+		}
+	]
+}
