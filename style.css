@@ -24,37 +24,33 @@ body {
 }
 
 .reservation {
-	height: 100vh;
-	color: var(--white-clr);
-	background-color: var(--black-clr);
-}
-
-.reservation__container {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
 	justify-content: center;
 	gap: 20px;
-	width: 400px;
-	height: 100%;
-	margin: 0 auto;
+	min-height: 100vh;
+	color: var(--white-clr);
+	background-color: var(--black-clr);
 }
 
-.reservation__movie-selection {
+.reservation__selector {
 	display: flex;
 	gap: 8px;
 }
 
-.reservation__movie-selection select {
+.reservation__select {
 	padding: 5px 10px;
 	border-radius: 10px;
 	border: 0;
 	outline: 0;
 	font-size: 14px;
+	color: var(--black-clr);
+	background-color: var(--white-clr);
 	appearance: none;
 }
 
-.reservation__types-seats {
+.reservation__legend {
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
@@ -66,7 +62,7 @@ body {
 	background-color: rgba(0, 0, 0, 0.1);
 }
 
-.reservation__types-seats li {
+.reservation__legend-item {
 	display: flex;
 	justify-content: center;
 	align-items: center;
@@ -86,7 +82,7 @@ body {
 	transform: rotateX(-45deg);
 }
 
-.cinema__seats {
+.cinema__hall {
 	display: flex;
 	flex-direction: column;
 	gap: 15px;
@@ -95,6 +91,15 @@ body {
 .cinema__row {
 	display: flex;
 	gap: 8px;
+}
+
+.cinema__hall .seat:not(.seat--occupied):hover {
+	cursor: pointer;
+	transform: scale(1.2);
+}
+
+.cinema__aisle {
+	width: 30px;
 }
 
 .seat {
@@ -113,17 +118,6 @@ body {
 	background-color: var(--white-clr);
 }
 
-.seat:nth-of-type(2),
-.seat:nth-of-type(6) {
-	margin-right: 30px;
-}
-
-.cinema .seat:not(.seat--occupied):hover {
-	cursor: pointer;
-	transform: scale(1.2);
-	/* outline: 1px solid var(--white-clr); */
-}
-
-.reservation__price span {
+.reservation__receipt-span {
 	color: var(--blue-clr);
 }
