@@ -74,7 +74,7 @@ body {
 }
 
 .cinema__screen {
-	width: 100%;
+	width: 280px;
 	height: 70px;
 	margin-bottom: 20px;
 	background-color: var(--white-clr);
@@ -84,22 +84,26 @@ body {
 
 .cinema__hall {
 	display: flex;
-	flex-direction: column;
-	gap: 15px;
+	justify-content: center;
+	gap: 30px;
 }
 
-.cinema__row {
-	display: flex;
+.cinema__group {
+	display: grid;
 	gap: 8px;
+}
+
+.cinema__group--cols2 {
+	grid-template-columns: repeat(2, 20px);
+}
+
+.cinema__group--cols4 {
+	grid-template-columns: repeat(4, 20px);
 }
 
 .cinema__hall .seat:not(.seat--occupied):hover {
 	cursor: pointer;
 	transform: scale(1.2);
-}
-
-.cinema__aisle {
-	width: 30px;
 }
 
 .seat {
