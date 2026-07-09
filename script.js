@@ -43,6 +43,35 @@ function createMovieOption(movie) {
 	return option;
 }
 
+function getCurrentMovieId() {
+	const options = movieSelect.options;
+	const selectedIndex = movieSelect.selectedIndex;
+
+	if (selectedIndex < 0) return "avengers-endgame";
+	return options[selectedIndex].id;
+}
+
+function createCinemaSeat(status) {
+	const seat = document.createElement("div");
+	seat.classList.add("seat");
+	seat.classList.add(`seat--${status}`);
+
+	return seat;
+}
+
+function createCinemaGroup({ columnsCount, seats }) {
+	const group = document.createElement("div");
+	group.classList.add("cinema__group");
+	group.classList.add(`cinema__group--cols${columnsCount}`);
+
+	seats.forEach((seat) => {
+		const seatElement = createCinemaSeat(seat.status);
+		group.append(seatElement);
+	});
+
+	return group;
+}
+
 // Асинхронные функции
 async function getMoviesAsync() {
 	try {
@@ -60,6 +89,23 @@ async function getMoviesAsync() {
 	}
 }
 
+async function getCinemaHallForCurrentMovieAsync(id) {
+	try {
+		const response = await fetch(`http://localhost:3000/cinema?movieId=${id}`);
+
+		if (!response.ok) {
+			throw new Error(`HTTP error: ${response.status}`);
+		}
+
+		const data = await response.json();
+		const movieHall = data[0].hall;
+
+		return movieHall;
+	} catch (error) {
+		console.error(error.message);
+	}
+}
+
 // Основные функции
 async function renderMoviesOptions() {
 	const movies = await getMoviesAsync();
@@ -67,6 +113,16 @@ async function renderMoviesOptions() {
 	movies.forEach((movie) => {
 		const movieOption = createMovieOption(movie);
 		movieSelect.append(movieOption);
+	});
+}
+
+async function renderCinemaHall() {
+	const movieId = getCurrentMovieId();
+	const hall = await getCinemaHallForCurrentMovieAsync(movieId);
+
+	hall.forEach((group) => {
+		const groupElement = createCinemaGroup(group);
+		cinemaHall.append(groupElement);
 	});
 }
 
@@ -84,3 +140,4 @@ cinemaHall.addEventListener("click", handleSeatClick);
 // ошибка: есть возможность выбрать разные места в разных фильмах
 
 renderMoviesOptions();
+renderCinemaHall();

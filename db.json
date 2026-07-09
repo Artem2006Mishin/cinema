@@ -25,33 +25,14 @@
 	"cinema": [
 		{
 			"movieId": "avengers-endgame",
-			"rows": [
+			"hall": [
 				{
-					"seats": [
-						{ "status": "occupied" },
-						{ "status": "occupied" },
-						{ "status": "free" },
-						{ "status": "free" },
-						{ "status": "occupied" },
-						{ "status": "free" },
-						{ "status": "free" },
-						{ "status": "free" }
-					]
-				},
-				{
+					"columnsCount": 2,
 					"seats": [
 						{ "status": "free" },
 						{ "status": "free" },
 						{ "status": "free" },
 						{ "status": "free" },
-						{ "status": "free" },
-						{ "status": "free" },
-						{ "status": "occupied" },
-						{ "status": "occupied" }
-					]
-				},
-				{
-					"seats": [
 						{ "status": "free" },
 						{ "status": "free" },
 						{ "status": "free" },
@@ -63,6 +44,7 @@
 					]
 				},
 				{
+					"columnsCount": 4,
 					"seats": [
 						{ "status": "free" },
 						{ "status": "free" },
@@ -70,12 +52,16 @@
 						{ "status": "free" },
 						{ "status": "free" },
 						{ "status": "free" },
-						{ "status": "occupied" },
-						{ "status": "occupied" }
-					]
-				},
-				{
-					"seats": [
+						{ "status": "free" },
+						{ "status": "free" },
+						{ "status": "free" },
+						{ "status": "free" },
+						{ "status": "free" },
+						{ "status": "free" },
+						{ "status": "free" },
+						{ "status": "free" },
+						{ "status": "free" },
+						{ "status": "free" },
 						{ "status": "free" },
 						{ "status": "free" },
 						{ "status": "free" },
@@ -87,12 +73,221 @@
 					]
 				},
 				{
+					"columnsCount": 2,
 					"seats": [
 						{ "status": "free" },
 						{ "status": "free" },
 						{ "status": "free" },
-						{ "status": "occupied" },
-						{ "status": "occupied" },
+						{ "status": "free" },
+						{ "status": "free" },
+						{ "status": "free" },
+						{ "status": "free" },
+						{ "status": "free" },
+						{ "status": "free" },
+						{ "status": "free" },
+						{ "status": "free" },
+						{ "status": "free" }
+					]
+				}
+			]
+		},
+		{
+			"movieId": "joker",
+			"hall": [
+				{
+					"columnsCount": 2,
+					"seats": [
+						{ "status": "free" },
+						{ "status": "free" },
+						{ "status": "free" },
+						{ "status": "free" },
+						{ "status": "free" },
+						{ "status": "free" },
+						{ "status": "free" },
+						{ "status": "free" },
+						{ "status": "free" },
+						{ "status": "free" },
+						{ "status": "free" },
+						{ "status": "free" }
+					]
+				},
+				{
+					"columnsCount": 4,
+					"seats": [
+						{ "status": "free" },
+						{ "status": "free" },
+						{ "status": "free" },
+						{ "status": "free" },
+						{ "status": "free" },
+						{ "status": "free" },
+						{ "status": "free" },
+						{ "status": "free" },
+						{ "status": "free" },
+						{ "status": "free" },
+						{ "status": "free" },
+						{ "status": "free" },
+						{ "status": "free" },
+						{ "status": "free" },
+						{ "status": "free" },
+						{ "status": "free" },
+						{ "status": "free" },
+						{ "status": "free" },
+						{ "status": "free" },
+						{ "status": "free" },
+						{ "status": "free" },
+						{ "status": "free" },
+						{ "status": "free" },
+						{ "status": "free" }
+					]
+				},
+				{
+					"columnsCount": 2,
+					"seats": [
+						{ "status": "free" },
+						{ "status": "free" },
+						{ "status": "free" },
+						{ "status": "free" },
+						{ "status": "free" },
+						{ "status": "free" },
+						{ "status": "free" },
+						{ "status": "free" },
+						{ "status": "free" },
+						{ "status": "free" },
+						{ "status": "free" },
+						{ "status": "free" }
+					]
+				}
+			]
+		},
+		{
+			"movieId": "toy-story",
+			"hall": [
+				{
+					"columnsCount": 2,
+					"seats": [
+						{ "status": "free" },
+						{ "status": "free" },
+						{ "status": "free" },
+						{ "status": "free" },
+						{ "status": "free" },
+						{ "status": "free" },
+						{ "status": "free" },
+						{ "status": "free" },
+						{ "status": "free" },
+						{ "status": "free" },
+						{ "status": "free" },
+						{ "status": "free" }
+					]
+				},
+				{
+					"columnsCount": 4,
+					"seats": [
+						{ "status": "free" },
+						{ "status": "free" },
+						{ "status": "free" },
+						{ "status": "free" },
+						{ "status": "free" },
+						{ "status": "free" },
+						{ "status": "free" },
+						{ "status": "free" },
+						{ "status": "free" },
+						{ "status": "free" },
+						{ "status": "free" },
+						{ "status": "free" },
+						{ "status": "free" },
+						{ "status": "free" },
+						{ "status": "free" },
+						{ "status": "free" },
+						{ "status": "free" },
+						{ "status": "free" },
+						{ "status": "free" },
+						{ "status": "free" },
+						{ "status": "free" },
+						{ "status": "free" },
+						{ "status": "free" },
+						{ "status": "free" }
+					]
+				},
+				{
+					"columnsCount": 2,
+					"seats": [
+						{ "status": "free" },
+						{ "status": "free" },
+						{ "status": "free" },
+						{ "status": "free" },
+						{ "status": "free" },
+						{ "status": "free" },
+						{ "status": "free" },
+						{ "status": "free" },
+						{ "status": "free" },
+						{ "status": "free" },
+						{ "status": "free" },
+						{ "status": "free" }
+					]
+				}
+			]
+		},
+		{
+			"movieId": "lion-king",
+			"hall": [
+				{
+					"columnsCount": 2,
+					"seats": [
+						{ "status": "free" },
+						{ "status": "free" },
+						{ "status": "free" },
+						{ "status": "free" },
+						{ "status": "free" },
+						{ "status": "free" },
+						{ "status": "free" },
+						{ "status": "free" },
+						{ "status": "free" },
+						{ "status": "free" },
+						{ "status": "free" },
+						{ "status": "free" }
+					]
+				},
+				{
+					"columnsCount": 4,
+					"seats": [
+						{ "status": "free" },
+						{ "status": "free" },
+						{ "status": "free" },
+						{ "status": "free" },
+						{ "status": "free" },
+						{ "status": "free" },
+						{ "status": "free" },
+						{ "status": "free" },
+						{ "status": "free" },
+						{ "status": "free" },
+						{ "status": "free" },
+						{ "status": "free" },
+						{ "status": "free" },
+						{ "status": "free" },
+						{ "status": "free" },
+						{ "status": "free" },
+						{ "status": "free" },
+						{ "status": "free" },
+						{ "status": "free" },
+						{ "status": "free" },
+						{ "status": "free" },
+						{ "status": "free" },
+						{ "status": "free" },
+						{ "status": "free" }
+					]
+				},
+				{
+					"columnsCount": 2,
+					"seats": [
+						{ "status": "free" },
+						{ "status": "free" },
+						{ "status": "free" },
+						{ "status": "free" },
+						{ "status": "free" },
+						{ "status": "free" },
+						{ "status": "free" },
+						{ "status": "free" },
+						{ "status": "free" },
 						{ "status": "free" },
 						{ "status": "free" },
 						{ "status": "free" }
