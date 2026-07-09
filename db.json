@@ -31,8 +31,8 @@
 					"seats": [
 						{ "status": "free" },
 						{ "status": "free" },
-						{ "status": "free" },
-						{ "status": "free" },
+						{ "status": "occupied" },
+						{ "status": "occupied" },
 						{ "status": "free" },
 						{ "status": "free" },
 						{ "status": "free" },
@@ -63,8 +63,8 @@
 						{ "status": "free" },
 						{ "status": "free" },
 						{ "status": "free" },
-						{ "status": "free" },
-						{ "status": "free" },
+						{ "status": "occupied" },
+						{ "status": "occupied" },
 						{ "status": "free" },
 						{ "status": "free" },
 						{ "status": "free" },
@@ -151,8 +151,8 @@
 						{ "status": "free" },
 						{ "status": "free" },
 						{ "status": "free" },
-						{ "status": "free" },
-						{ "status": "free" },
+						{ "status": "occupied" },
+						{ "status": "occupied" },
 						{ "status": "free" },
 						{ "status": "free" }
 					]

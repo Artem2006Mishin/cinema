@@ -44,7 +44,6 @@ function getCurrentMovieId() {
 	const options = movieSelect.options;
 	const selectedIndex = movieSelect.selectedIndex;
 
-	if (selectedIndex < 0) return "avengers-endgame";
 	return options[selectedIndex].id;
 }
 
@@ -117,6 +116,7 @@ async function renderCinemaHall() {
 	const movieId = getCurrentMovieId();
 	const hall = await getCinemaHallForCurrentMovieAsync(movieId);
 
+	cinemaHall.innerHTML = "";
 	hall.forEach((group) => {
 		const groupElement = createCinemaGroup(group);
 		cinemaHall.append(groupElement);
@@ -132,7 +132,17 @@ function handleSeatClick(event) {
 	updateReceipt();
 }
 
-cinemaHall.addEventListener("click", handleSeatClick);
+async function handleMovieSelectChange() {
+	await renderCinemaHall();
+	updateReceipt();
+}
 
-renderMoviesOptions();
-renderCinemaHall();
+async function initialize() {
+	await renderMoviesOptions();
+	await renderCinemaHall();
+
+	cinemaHall.addEventListener("click", handleSeatClick);
+	movieSelect.addEventListener("change", handleMovieSelectChange);
+}
+
+initialize();
