@@ -10,10 +10,7 @@ const totalPrice = document.querySelector("#total-price");
 
 // Вспомогательные функции
 function isFreeSeat(element) {
-	const isSeat = element.classList.contains("seat");
-	const isFree = !element.classList.contains("seat--occupied");
-
-	return isSeat && isFree;
+	return element.classList.contains("seat--free");
 }
 
 function toggleSelectedSeat(seat) {
@@ -21,7 +18,7 @@ function toggleSelectedSeat(seat) {
 }
 
 function calculateSelectedSeatsCount() {
-	const seats = document.querySelectorAll(".cinema__row .seat--selected");
+	const seats = document.querySelectorAll(".cinema__hall .seat--selected");
 
 	return seats.length;
 }
@@ -136,8 +133,6 @@ function handleSeatClick(event) {
 }
 
 cinemaHall.addEventListener("click", handleSeatClick);
-
-// ошибка: есть возможность выбрать разные места в разных фильмах
 
 renderMoviesOptions();
 renderCinemaHall();
