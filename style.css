@@ -125,3 +125,20 @@ body {
 .reservation__receipt-span {
 	color: var(--blue-clr);
 }
+
+.reservation__button {
+	width: 100px;
+	padding: 5px;
+	border-radius: 10px;
+	border: 0;
+	outline: 0;
+	font-size: 14px;
+	color: var(--black-clr);
+	background-color: var(--white-clr);
+	cursor: pointer;
+}
+
+.reservation__button--inactive {
+	background-color: var(--light-gray-clr);
+	cursor: not-allowed;
+}

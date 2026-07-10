@@ -5,34 +5,138 @@ const cinemaHall = document.querySelector(".cinema__hall");
 const movieSelect = document.querySelector("#movie-select");
 const selectedSeatsCount = document.querySelector("#selected-seat-count");
 const totalPrice = document.querySelector("#total-price");
+const reserveBtn = document.querySelector(".reservation__button");
 
-// Переменные
+// Глобальное состояние
+let cinemaData;
+let movies;
 
-// Вспомогательные функции
+// Функции ПРОВЕРКИ
 function isFreeSeat(element) {
 	return element.classList.contains("seat--free");
 }
 
-function toggleSelectedSeat(seat) {
-	seat.classList.toggle("seat--selected");
-}
-
-function calculateSelectedSeatsCount() {
-	const seats = document.querySelectorAll(".cinema__hall .seat--selected");
-
-	return seats.length;
-}
-
+// Функции ОБНОВЛЕНИЯ
 function updateReceipt() {
-	const count = calculateSelectedSeatsCount();
+	const seats = getSelectedSeats();
+	const count = seats.length;
 
 	selectedSeatsCount.textContent = count;
 	totalPrice.textContent = count * Number(movieSelect.value);
 }
 
+async function updateCinemaDateAsync() {
+	try {
+		const url = `http://localhost:3000/cinema/${cinemaData.id}`;
+		const options = {
+			method: "PUT",
+			headers: {
+				"Content-Type": "application/json",
+			},
+			body: JSON.stringify(cinemaData),
+		};
+
+		const response = await fetch(url, options);
+		cinemaData = await response.json();
+	} catch (error) {
+		console.error(error.message);
+	}
+}
+
+// Функции ИЗМЕНЕНИЯ
+function toggleSelectedSeat(seat) {
+	seat.classList.toggle("seat--selected");
+}
+
+function toggleReserveBtn() {
+	const seats = getSelectedSeats();
+	const isEmpty = !seats.length;
+
+	reserveBtn.classList.toggle("reservation__button--inactive", isEmpty);
+
+	if (isEmpty) {
+		reserveBtn.disabled = true;
+	} else {
+		reserveBtn.disabled = false;
+	}
+}
+
+async function toggleCinemaHall() {
+	const id = getMovieSelectId();
+	await getCinemaDataAsync(id);
+
+	renderCinemaHall();
+}
+
+function reserveSeat(groupIndex, seatIndex) {
+	cinemaData.hall[groupIndex].seats[seatIndex].status = "occupied";
+}
+
+async function reserveSelectedSeats() {
+	const seats = getSelectedSeats();
+	seats.forEach((seat) => {
+		const { groupIndex, seatIndex } = getSeatPosition(seat);
+		reserveSeat(groupIndex, seatIndex);
+	});
+
+	await updateCinemaDateAsync();
+	renderCinemaHall();
+}
+
+// Функции ПОЛУЧЕНИЯ
+function getSelectedSeats() {
+	const seats = document.querySelectorAll(".cinema__hall .seat--selected");
+
+	return seats;
+}
+
+function getSeatPosition(seat) {
+	return {
+		groupIndex: seat.parentElement.dataset.groupIndex,
+		seatIndex: seat.dataset.seatIndex,
+	};
+}
+
+function getMovieSelectId() {
+	const options = movieSelect.options;
+	const selectedIndex = movieSelect.selectedIndex;
+
+	return options[selectedIndex].id;
+}
+
+async function getMoviesAsync() {
+	try {
+		const url = "http://localhost:3000/movies";
+		const response = await fetch(url);
+
+		if (!response.ok) {
+			throw new Error(`HTTP error: ${response.status}`);
+		}
+
+		movies = await response.json();
+	} catch (error) {
+		console.error(error.message);
+	}
+}
+
+async function getCinemaDataAsync(id) {
+	try {
+		const url = `http://localhost:3000/cinema/${id}`;
+		const response = await fetch(url);
+
+		if (!response.ok) {
+			throw new Error(`HTTP error: ${response.status}`);
+		}
+
+		cinemaData = await response.json();
+	} catch (error) {
+		console.error(error.message);
+	}
+}
+
+// Функции СОЗДАНИЯ
 function createMovieOption(movie) {
 	const option = document.createElement("option");
-
 	option.id = movie.id;
 	option.value = movie.price;
 	option.textContent = movie.title;
@@ -40,109 +144,77 @@ function createMovieOption(movie) {
 	return option;
 }
 
-function getCurrentMovieId() {
-	const options = movieSelect.options;
-	const selectedIndex = movieSelect.selectedIndex;
-
-	return options[selectedIndex].id;
-}
-
-function createCinemaSeat(status) {
+function createCinemaSeat(status, index) {
 	const seat = document.createElement("div");
 	seat.classList.add("seat");
 	seat.classList.add(`seat--${status}`);
+	seat.dataset.seatIndex = index;
 
 	return seat;
 }
 
-function createCinemaGroup({ columnsCount, seats }) {
+function createCinemaGroup({ columnsCount, seats }, index) {
 	const group = document.createElement("div");
 	group.classList.add("cinema__group");
 	group.classList.add(`cinema__group--cols${columnsCount}`);
+	group.dataset.groupIndex = index;
 
-	seats.forEach((seat) => {
-		const seatElement = createCinemaSeat(seat.status);
+	seats.forEach((seat, index) => {
+		const seatElement = createCinemaSeat(seat.status, index);
 		group.append(seatElement);
 	});
 
 	return group;
 }
 
-// Асинхронные функции
-async function getMoviesAsync() {
-	try {
-		const response = await fetch("http://localhost:3000/movies");
-
-		if (!response.ok) {
-			throw new Error(`HTTP error: ${response.status}`);
-		}
-
-		const movies = await response.json();
-
-		return movies;
-	} catch (error) {
-		console.error(error.message);
-	}
-}
-
-async function getCinemaHallForCurrentMovieAsync(id) {
-	try {
-		const response = await fetch(`http://localhost:3000/cinema?movieId=${id}`);
-
-		if (!response.ok) {
-			throw new Error(`HTTP error: ${response.status}`);
-		}
-
-		const data = await response.json();
-		const movieHall = data[0].hall;
-
-		return movieHall;
-	} catch (error) {
-		console.error(error.message);
-	}
-}
-
-// Основные функции
-async function renderMoviesOptions() {
-	const movies = await getMoviesAsync();
-
+// Функции РЕНДЕРА
+function renderMoviesOptions() {
 	movies.forEach((movie) => {
 		const movieOption = createMovieOption(movie);
 		movieSelect.append(movieOption);
 	});
 }
 
-async function renderCinemaHall() {
-	const movieId = getCurrentMovieId();
-	const hall = await getCinemaHallForCurrentMovieAsync(movieId);
-
+function renderCinemaHall() {
 	cinemaHall.innerHTML = "";
-	hall.forEach((group) => {
-		const groupElement = createCinemaGroup(group);
+	cinemaData.hall.forEach((group, index) => {
+		const groupElement = createCinemaGroup(group, index);
 		cinemaHall.append(groupElement);
 	});
 }
 
+// Функции ОБРАБОТКИ СОБЫТИЙ
 function handleSeatClick(event) {
-	const target = event.target;
+	if (!isFreeSeat(event.target)) return;
 
-	if (!isFreeSeat(target)) return;
-
-	toggleSelectedSeat(target);
+	toggleSelectedSeat(event.target);
 	updateReceipt();
+	toggleReserveBtn();
 }
 
 async function handleMovieSelectChange() {
-	await renderCinemaHall();
+	await toggleCinemaHall();
 	updateReceipt();
+	toggleReserveBtn();
 }
 
+async function handleReservation(event) {
+	event.preventDefault();
+	await reserveSelectedSeats();
+}
+
+// ИНИЦИАЛИЗАЦИЯ
 async function initialize() {
-	await renderMoviesOptions();
-	await renderCinemaHall();
+	await getMoviesAsync();
+	renderMoviesOptions();
+
+	await toggleCinemaHall();
 
 	cinemaHall.addEventListener("click", handleSeatClick);
 	movieSelect.addEventListener("change", handleMovieSelectChange);
+	reserveBtn.addEventListener("click", handleReservation);
+
+	reserveBtn.disabled = true;
 }
 
 initialize();
