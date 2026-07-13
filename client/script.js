@@ -11,79 +11,12 @@ const reserveBtn = document.querySelector(".reservation__button");
 let cinemaData;
 let movies;
 
-// Функции ПРОВЕРКИ
+// Функции проверки
 function isFreeSeat(element) {
 	return element.classList.contains("seat--free");
 }
 
-// Функции ОБНОВЛЕНИЯ
-function updateReceipt() {
-	const seats = getSelectedSeats();
-	const count = seats.length;
-
-	selectedSeatsCount.textContent = count;
-	totalPrice.textContent = count * Number(movieSelect.value);
-}
-
-async function updateCinemaDateAsync() {
-	try {
-		const url = `http://localhost:3000/cinema/${cinemaData.id}`;
-		const options = {
-			method: "PUT",
-			headers: {
-				"Content-Type": "application/json",
-			},
-			body: JSON.stringify(cinemaData),
-		};
-
-		const response = await fetch(url, options);
-		cinemaData = await response.json();
-	} catch (error) {
-		console.error(error.message);
-	}
-}
-
-// Функции ИЗМЕНЕНИЯ
-function toggleSelectedSeat(seat) {
-	seat.classList.toggle("seat--selected");
-}
-
-function toggleReserveBtn() {
-	const seats = getSelectedSeats();
-	const isEmpty = !seats.length;
-
-	reserveBtn.classList.toggle("reservation__button--inactive", isEmpty);
-
-	if (isEmpty) {
-		reserveBtn.disabled = true;
-	} else {
-		reserveBtn.disabled = false;
-	}
-}
-
-async function toggleCinemaHall() {
-	const id = getMovieSelectId();
-	await getCinemaDataAsync(id);
-
-	renderCinemaHall();
-}
-
-function reserveSeat(groupIndex, seatIndex) {
-	cinemaData.hall[groupIndex].seats[seatIndex].status = "occupied";
-}
-
-async function reserveSelectedSeats() {
-	const seats = getSelectedSeats();
-	seats.forEach((seat) => {
-		const { groupIndex, seatIndex } = getSeatPosition(seat);
-		reserveSeat(groupIndex, seatIndex);
-	});
-
-	await updateCinemaDateAsync();
-	renderCinemaHall();
-}
-
-// Функции ПОЛУЧЕНИЯ
+// Функции получения
 function getSelectedSeats() {
 	const seats = document.querySelectorAll(".cinema__hall .seat--selected");
 
@@ -104,37 +37,7 @@ function getMovieSelectId() {
 	return options[selectedIndex].id;
 }
 
-async function getMoviesAsync() {
-	try {
-		const url = "http://localhost:3000/movies";
-		const response = await fetch(url);
-
-		if (!response.ok) {
-			throw new Error(`HTTP error: ${response.status}`);
-		}
-
-		movies = await response.json();
-	} catch (error) {
-		console.error(error.message);
-	}
-}
-
-async function getCinemaDataAsync(id) {
-	try {
-		const url = `http://localhost:3000/cinema/${id}`;
-		const response = await fetch(url);
-
-		if (!response.ok) {
-			throw new Error(`HTTP error: ${response.status}`);
-		}
-
-		cinemaData = await response.json();
-	} catch (error) {
-		console.error(error.message);
-	}
-}
-
-// Функции СОЗДАНИЯ
+// Функции создания
 function createMovieOption(movie) {
 	const option = document.createElement("option");
 	option.id = movie.id;
@@ -167,7 +70,43 @@ function createCinemaGroup({ columnsCount, seats }, index) {
 	return group;
 }
 
-// Функции РЕНДЕРА
+// Функции переключения состояния
+function toggleSelectedSeat(seat) {
+	seat.classList.toggle("seat--selected");
+}
+
+function toggleReserveBtn(isEmpty) {
+	if (isEmpty) {
+		reserveBtn.classList.add("reservation__button--inactive");
+		reserveBtn.disabled = true;
+	} else {
+		reserveBtn.classList.remove("reservation__button--inactive");
+		reserveBtn.disabled = false;
+	}
+}
+
+async function toggleCinemaHall() {
+	const id = getMovieSelectId();
+	await getCinemaDataAsync(id);
+	renderCinemaHall();
+}
+
+// Функции обновления состояния
+function updateReceipt(count) {
+	selectedSeatsCount.textContent = count;
+	totalPrice.textContent = count * Number(movieSelect.value);
+}
+
+function updateReservationState() {
+	const seats = getSelectedSeats();
+	const count = seats.length;
+	updateReceipt(count);
+
+	const isEmpty = !count;
+	toggleReserveBtn(isEmpty);
+}
+
+// Функции рендера
 function renderMoviesOptions() {
 	movies.forEach((movie) => {
 		const movieOption = createMovieOption(movie);
@@ -183,38 +122,102 @@ function renderCinemaHall() {
 	});
 }
 
-// Функции ОБРАБОТКИ СОБЫТИЙ
+// Функции бронирования
+function reserveSeat(groupIndex, seatIndex) {
+	cinemaData.hall[groupIndex].seats[seatIndex].status = "occupied";
+}
+
+async function reserveSelectedSeats() {
+	const seats = getSelectedSeats();
+	seats.forEach((seat) => {
+		const { groupIndex, seatIndex } = getSeatPosition(seat);
+		reserveSeat(groupIndex, seatIndex);
+	});
+
+	await updateCinemaDateAsync();
+	renderCinemaHall();
+}
+
+// Асинхронные функции
+async function getMoviesAsync() {
+	try {
+		const url = "http://localhost:3000/movies";
+		const response = await fetch(url);
+
+		if (!response.ok) {
+			throw new Error(`HTTP error: ${response.status}`);
+		}
+
+		movies = await response.json();
+	} catch (error) {
+		console.error(error.message);
+	}
+}
+
+async function getCinemaDataAsync(id) {
+	try {
+		const url = `http://localhost:3000/cinema/${id}`;
+		const response = await fetch(url);
+
+		if (!response.ok) {
+			throw new Error(`HTTP error: ${response.status}`);
+		}
+
+		cinemaData = await response.json();
+	} catch (error) {
+		console.error(error.message);
+	}
+}
+
+async function updateCinemaDateAsync() {
+	try {
+		const url = `http://localhost:3000/cinema/${cinemaData.id}`;
+		const options = {
+			method: "PUT",
+			headers: {
+				"Content-Type": "application/json",
+			},
+			body: JSON.stringify(cinemaData),
+		};
+
+		const response = await fetch(url, options);
+		cinemaData = await response.json();
+	} catch (error) {
+		console.error(error.message);
+	}
+}
+
+// Обработчики событий
 function handleSeatClick(event) {
 	if (!isFreeSeat(event.target)) return;
 
 	toggleSelectedSeat(event.target);
-	updateReceipt();
-	toggleReserveBtn();
+	updateReservationState();
 }
 
 async function handleMovieSelectChange() {
 	await toggleCinemaHall();
-	updateReceipt();
-	toggleReserveBtn();
+	updateReservationState();
 }
 
 async function handleReservation(event) {
 	event.preventDefault();
 	await reserveSelectedSeats();
+	updateReservationState();
 }
 
-// ИНИЦИАЛИЗАЦИЯ
+// Инициализация
 async function initialize() {
 	await getMoviesAsync();
 	renderMoviesOptions();
 
 	await toggleCinemaHall();
 
+	updateReservationState();
+
 	cinemaHall.addEventListener("click", handleSeatClick);
 	movieSelect.addEventListener("change", handleMovieSelectChange);
 	reserveBtn.addEventListener("click", handleReservation);
-
-	reserveBtn.disabled = true;
 }
 
 initialize();
