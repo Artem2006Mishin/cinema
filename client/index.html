@@ -5,13 +5,14 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<title>Movie seats booking</title>
 		<link rel="stylesheet" href="style.css" />
-		<script src="script.js" defer></script>
+		<script type="module" src="main.js"></script>
+		<!-- <script src="script.js" defer></script> -->
 	</head>
 	<body>
 		<div class="reservation">
-			<div class="reservation__selector">
+			<div class="reservation__switcher">
 				<label>Pick a movie:</label>
-				<select id="movie-select" class="reservation__select"></select>
+				<select id="movie-dropdown" class="reservation__dropdown"></select>
 			</div>
 
 			<ul class="reservation__legend">

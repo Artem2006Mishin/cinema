@@ -34,12 +34,12 @@ body {
 	background-color: var(--black-clr);
 }
 
-.reservation__selector {
+.reservation__switcher {
 	display: flex;
 	gap: 8px;
 }
 
-.reservation__select {
+.reservation__dropdown {
 	padding: 5px 10px;
 	border-radius: 10px;
 	border: 0;

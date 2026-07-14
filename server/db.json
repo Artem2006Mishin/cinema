@@ -103,7 +103,7 @@
               "status": "occupied"
             },
             {
-              "status": "free"
+              "status": "occupied"
             },
             {
               "status": "free"
@@ -127,10 +127,10 @@
               "status": "occupied"
             },
             {
-              "status": "free"
+              "status": "occupied"
             },
             {
-              "status": "free"
+              "status": "occupied"
             },
             {
               "status": "occupied"
@@ -193,22 +193,22 @@
           "columnsCount": 2,
           "seats": [
             {
-              "status": "free"
-            },
-            {
-              "status": "free"
-            },
-            {
-              "status": "free"
-            },
-            {
-              "status": "free"
+              "status": "occupied"
             },
             {
               "status": "occupied"
             },
             {
-              "status": "free"
+              "status": "occupied"
+            },
+            {
+              "status": "occupied"
+            },
+            {
+              "status": "occupied"
+            },
+            {
+              "status": "occupied"
             },
             {
               "status": "occupied"
@@ -311,28 +311,10 @@
           "columnsCount": 2,
           "seats": [
             {
-              "status": "free"
+              "status": "occupied"
             },
             {
-              "status": "free"
-            },
-            {
-              "status": "free"
-            },
-            {
-              "status": "free"
-            },
-            {
-              "status": "free"
-            },
-            {
-              "status": "free"
-            },
-            {
-              "status": "free"
-            },
-            {
-              "status": "free"
+              "status": "occupied"
             },
             {
               "status": "occupied"
@@ -341,10 +323,28 @@
               "status": "occupied"
             },
             {
-              "status": "free"
+              "status": "occupied"
             },
             {
-              "status": "free"
+              "status": "occupied"
+            },
+            {
+              "status": "occupied"
+            },
+            {
+              "status": "occupied"
+            },
+            {
+              "status": "occupied"
+            },
+            {
+              "status": "occupied"
+            },
+            {
+              "status": "occupied"
+            },
+            {
+              "status": "occupied"
             }
           ]
         }
