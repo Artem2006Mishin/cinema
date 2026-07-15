@@ -41,7 +41,7 @@ export function renderCinemaHall() {
 
 async function loadCinemaData(id) {
 	try {
-		const url = `${API_URL}/${id}`;
+		const url = `${API_URL}/cinema/${id}`;
 		const response = await fetch(url);
 
 		if (!response.ok) {
@@ -56,7 +56,7 @@ async function loadCinemaData(id) {
 
 export async function saveCinemaData() {
 	try {
-		const url = `${API_URL}/${cinemaData.id}`;
+		const url = `${API_URL}/cinema/${cinemaData.id}`;
 		const options = {
 			method: "PUT",
 			headers: {
