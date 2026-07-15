@@ -1,4 +1,5 @@
 import { getFromStorage } from "./storage.js";
+import { API_URL } from "./api.js";
 
 function isFreeSeat(seat) {
 	return seat.classList.contains("seat--free");
@@ -40,7 +41,7 @@ export function renderCinemaHall() {
 
 async function loadCinemaData(id) {
 	try {
-		const url = `http://localhost:3000/cinema/${id}`;
+		const url = `${API_URL}/${id}`;
 		const response = await fetch(url);
 
 		if (!response.ok) {
@@ -55,7 +56,7 @@ async function loadCinemaData(id) {
 
 export async function saveCinemaData() {
 	try {
-		const url = `http://localhost:3000/cinema/${cinemaData.id}`;
+		const url = `${API_URL}/${cinemaData.id}`;
 		const options = {
 			method: "PUT",
 			headers: {

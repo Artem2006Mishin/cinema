@@ -1,6 +1,7 @@
 import { getFromStorage, saveToStorage } from "./storage.js";
 import { updateCinemaData } from "./cinema.js";
 import { updateReservationState } from "./reservation.js";
+import { API_URL } from "./api.js";
 
 const OPTION_ID = "optionId"; // Сделать файл с такими названиями, потому что cinema его тоже исспльзует
 
@@ -33,7 +34,7 @@ function renderOptions(movies) {
 
 async function getMovies() {
 	try {
-		const url = "http://localhost:3000/movies";
+		const url = `${API_URL}/movies`;
 		const response = await fetch(url);
 
 		if (!response.ok) {
