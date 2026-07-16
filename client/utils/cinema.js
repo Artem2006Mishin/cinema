@@ -20,7 +20,7 @@ function createSeat(status, index) {
 function createGroup({ columnsCount, seats }, index) {
 	const group = document.createElement("div");
 	group.classList.add("cinema__group");
-	group.classList.add(`cinema__group--cols${columnsCount}`);
+	group.style.setProperty("--columns-count", columnsCount);
 	group.dataset.groupIndex = index;
 
 	seats.forEach((seat, index) => {
