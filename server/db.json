@@ -1,683 +1,683 @@
 {
-  "movies": [
-    {
-      "id": "avengers-endgame",
-      "title": "Avengers: Endgame ($10)",
-      "price": 10
-    },
-    {
-      "id": "joker",
-      "title": "Joker ($12)",
-      "price": 12
-    },
-    {
-      "id": "toy-story",
-      "title": "Toy story 4 ($8)",
-      "price": 8
-    },
-    {
-      "id": "lion-king",
-      "title": "The Lion King ($9)",
-      "price": 9
-    }
-  ],
-  "cinema": [
-    {
-      "id": "avengers-endgame",
-      "hall": [
-        {
-          "columnsCount": 2,
-          "seats": [
-            {
-              "status": "occupied"
-            },
-            {
-              "status": "occupied"
-            },
-            {
-              "status": "occupied"
-            },
-            {
-              "status": "occupied"
-            },
-            {
-              "status": "occupied"
-            },
-            {
-              "status": "occupied"
-            },
-            {
-              "status": "occupied"
-            },
-            {
-              "status": "occupied"
-            },
-            {
-              "status": "occupied"
-            },
-            {
-              "status": "occupied"
-            },
-            {
-              "status": "occupied"
-            },
-            {
-              "status": "occupied"
-            }
-          ]
-        },
-        {
-          "columnsCount": 4,
-          "seats": [
-            {
-              "status": "occupied"
-            },
-            {
-              "status": "occupied"
-            },
-            {
-              "status": "occupied"
-            },
-            {
-              "status": "occupied"
-            },
-            {
-              "status": "occupied"
-            },
-            {
-              "status": "occupied"
-            },
-            {
-              "status": "occupied"
-            },
-            {
-              "status": "occupied"
-            },
-            {
-              "status": "occupied"
-            },
-            {
-              "status": "occupied"
-            },
-            {
-              "status": "occupied"
-            },
-            {
-              "status": "occupied"
-            },
-            {
-              "status": "free"
-            },
-            {
-              "status": "free"
-            },
-            {
-              "status": "free"
-            },
-            {
-              "status": "free"
-            },
-            {
-              "status": "free"
-            },
-            {
-              "status": "occupied"
-            },
-            {
-              "status": "occupied"
-            },
-            {
-              "status": "occupied"
-            },
-            {
-              "status": "occupied"
-            },
-            {
-              "status": "occupied"
-            },
-            {
-              "status": "occupied"
-            },
-            {
-              "status": "occupied"
-            }
-          ]
-        },
-        {
-          "columnsCount": 2,
-          "seats": [
-            {
-              "status": "occupied"
-            },
-            {
-              "status": "occupied"
-            },
-            {
-              "status": "occupied"
-            },
-            {
-              "status": "occupied"
-            },
-            {
-              "status": "occupied"
-            },
-            {
-              "status": "occupied"
-            },
-            {
-              "status": "occupied"
-            },
-            {
-              "status": "free"
-            },
-            {
-              "status": "occupied"
-            },
-            {
-              "status": "occupied"
-            },
-            {
-              "status": "free"
-            },
-            {
-              "status": "free"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "id": "joker",
-      "hall": [
-        {
-          "columnsCount": 2,
-          "seats": [
-            {
-              "status": "occupied"
-            },
-            {
-              "status": "occupied"
-            },
-            {
-              "status": "occupied"
-            },
-            {
-              "status": "occupied"
-            },
-            {
-              "status": "occupied"
-            },
-            {
-              "status": "occupied"
-            },
-            {
-              "status": "occupied"
-            },
-            {
-              "status": "occupied"
-            },
-            {
-              "status": "occupied"
-            },
-            {
-              "status": "occupied"
-            },
-            {
-              "status": "occupied"
-            },
-            {
-              "status": "occupied"
-            }
-          ]
-        },
-        {
-          "columnsCount": 4,
-          "seats": [
-            {
-              "status": "free"
-            },
-            {
-              "status": "free"
-            },
-            {
-              "status": "free"
-            },
-            {
-              "status": "free"
-            },
-            {
-              "status": "free"
-            },
-            {
-              "status": "free"
-            },
-            {
-              "status": "free"
-            },
-            {
-              "status": "free"
-            },
-            {
-              "status": "free"
-            },
-            {
-              "status": "free"
-            },
-            {
-              "status": "free"
-            },
-            {
-              "status": "free"
-            },
-            {
-              "status": "free"
-            },
-            {
-              "status": "free"
-            },
-            {
-              "status": "free"
-            },
-            {
-              "status": "free"
-            },
-            {
-              "status": "free"
-            },
-            {
-              "status": "free"
-            },
-            {
-              "status": "free"
-            },
-            {
-              "status": "free"
-            },
-            {
-              "status": "free"
-            },
-            {
-              "status": "free"
-            },
-            {
-              "status": "free"
-            },
-            {
-              "status": "free"
-            }
-          ]
-        },
-        {
-          "columnsCount": 2,
-          "seats": [
-            {
-              "status": "occupied"
-            },
-            {
-              "status": "occupied"
-            },
-            {
-              "status": "occupied"
-            },
-            {
-              "status": "occupied"
-            },
-            {
-              "status": "occupied"
-            },
-            {
-              "status": "occupied"
-            },
-            {
-              "status": "occupied"
-            },
-            {
-              "status": "occupied"
-            },
-            {
-              "status": "occupied"
-            },
-            {
-              "status": "occupied"
-            },
-            {
-              "status": "occupied"
-            },
-            {
-              "status": "occupied"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "id": "toy-story",
-      "hall": [
-        {
-          "columnsCount": 2,
-          "seats": [
-            {
-              "status": "occupied"
-            },
-            {
-              "status": "occupied"
-            },
-            {
-              "status": "occupied"
-            },
-            {
-              "status": "occupied"
-            },
-            {
-              "status": "free"
-            },
-            {
-              "status": "free"
-            },
-            {
-              "status": "free"
-            },
-            {
-              "status": "free"
-            },
-            {
-              "status": "free"
-            },
-            {
-              "status": "free"
-            },
-            {
-              "status": "free"
-            },
-            {
-              "status": "free"
-            }
-          ]
-        },
-        {
-          "columnsCount": 4,
-          "seats": [
-            {
-              "status": "occupied"
-            },
-            {
-              "status": "occupied"
-            },
-            {
-              "status": "occupied"
-            },
-            {
-              "status": "occupied"
-            },
-            {
-              "status": "occupied"
-            },
-            {
-              "status": "occupied"
-            },
-            {
-              "status": "free"
-            },
-            {
-              "status": "free"
-            },
-            {
-              "status": "free"
-            },
-            {
-              "status": "occupied"
-            },
-            {
-              "status": "occupied"
-            },
-            {
-              "status": "free"
-            },
-            {
-              "status": "free"
-            },
-            {
-              "status": "free"
-            },
-            {
-              "status": "free"
-            },
-            {
-              "status": "free"
-            },
-            {
-              "status": "occupied"
-            },
-            {
-              "status": "occupied"
-            },
-            {
-              "status": "occupied"
-            },
-            {
-              "status": "occupied"
-            },
-            {
-              "status": "occupied"
-            },
-            {
-              "status": "occupied"
-            },
-            {
-              "status": "occupied"
-            },
-            {
-              "status": "occupied"
-            }
-          ]
-        },
-        {
-          "columnsCount": 2,
-          "seats": [
-            {
-              "status": "free"
-            },
-            {
-              "status": "free"
-            },
-            {
-              "status": "free"
-            },
-            {
-              "status": "free"
-            },
-            {
-              "status": "occupied"
-            },
-            {
-              "status": "occupied"
-            },
-            {
-              "status": "free"
-            },
-            {
-              "status": "free"
-            },
-            {
-              "status": "free"
-            },
-            {
-              "status": "free"
-            },
-            {
-              "status": "occupied"
-            },
-            {
-              "status": "occupied"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "id": "lion-king",
-      "hall": [
-        {
-          "columnsCount": 2,
-          "seats": [
-            {
-              "status": "free"
-            },
-            {
-              "status": "free"
-            },
-            {
-              "status": "free"
-            },
-            {
-              "status": "free"
-            },
-            {
-              "status": "free"
-            },
-            {
-              "status": "free"
-            },
-            {
-              "status": "free"
-            },
-            {
-              "status": "free"
-            },
-            {
-              "status": "free"
-            },
-            {
-              "status": "free"
-            },
-            {
-              "status": "free"
-            },
-            {
-              "status": "free"
-            }
-          ]
-        },
-        {
-          "columnsCount": 4,
-          "seats": [
-            {
-              "status": "free"
-            },
-            {
-              "status": "free"
-            },
-            {
-              "status": "free"
-            },
-            {
-              "status": "free"
-            },
-            {
-              "status": "free"
-            },
-            {
-              "status": "free"
-            },
-            {
-              "status": "free"
-            },
-            {
-              "status": "free"
-            },
-            {
-              "status": "free"
-            },
-            {
-              "status": "free"
-            },
-            {
-              "status": "free"
-            },
-            {
-              "status": "free"
-            },
-            {
-              "status": "free"
-            },
-            {
-              "status": "free"
-            },
-            {
-              "status": "free"
-            },
-            {
-              "status": "free"
-            },
-            {
-              "status": "free"
-            },
-            {
-              "status": "free"
-            },
-            {
-              "status": "free"
-            },
-            {
-              "status": "free"
-            },
-            {
-              "status": "free"
-            },
-            {
-              "status": "free"
-            },
-            {
-              "status": "free"
-            },
-            {
-              "status": "free"
-            }
-          ]
-        },
-        {
-          "columnsCount": 2,
-          "seats": [
-            {
-              "status": "free"
-            },
-            {
-              "status": "free"
-            },
-            {
-              "status": "free"
-            },
-            {
-              "status": "free"
-            },
-            {
-              "status": "free"
-            },
-            {
-              "status": "free"
-            },
-            {
-              "status": "free"
-            },
-            {
-              "status": "free"
-            },
-            {
-              "status": "free"
-            },
-            {
-              "status": "free"
-            },
-            {
-              "status": "free"
-            },
-            {
-              "status": "free"
-            }
-          ]
-        }
-      ]
-    }
-  ],
-  "$schema": "./node_modules/json-server/schema.json"
+	"movies": [
+		{
+			"id": "avengers-endgame",
+			"title": "Avengers: Endgame ($10)",
+			"price": 10
+		},
+		{
+			"id": "joker",
+			"title": "Joker ($12)",
+			"price": 12
+		},
+		{
+			"id": "toy-story",
+			"title": "Toy story 4 ($8)",
+			"price": 8
+		},
+		{
+			"id": "lion-king",
+			"title": "The Lion King ($9)",
+			"price": 9
+		}
+	],
+	"cinema": [
+		{
+			"id": "avengers-endgame",
+			"hall": [
+				{
+					"columnsCount": 2,
+					"seats": [
+						{
+							"status": "occupied"
+						},
+						{
+							"status": "occupied"
+						},
+						{
+							"status": "occupied"
+						},
+						{
+							"status": "occupied"
+						},
+						{
+							"status": "occupied"
+						},
+						{
+							"status": "occupied"
+						},
+						{
+							"status": "occupied"
+						},
+						{
+							"status": "occupied"
+						},
+						{
+							"status": "occupied"
+						},
+						{
+							"status": "occupied"
+						},
+						{
+							"status": "occupied"
+						},
+						{
+							"status": "occupied"
+						}
+					]
+				},
+				{
+					"columnsCount": 4,
+					"seats": [
+						{
+							"status": "occupied"
+						},
+						{
+							"status": "occupied"
+						},
+						{
+							"status": "occupied"
+						},
+						{
+							"status": "occupied"
+						},
+						{
+							"status": "occupied"
+						},
+						{
+							"status": "occupied"
+						},
+						{
+							"status": "occupied"
+						},
+						{
+							"status": "occupied"
+						},
+						{
+							"status": "occupied"
+						},
+						{
+							"status": "occupied"
+						},
+						{
+							"status": "occupied"
+						},
+						{
+							"status": "occupied"
+						},
+						{
+							"status": "free"
+						},
+						{
+							"status": "free"
+						},
+						{
+							"status": "free"
+						},
+						{
+							"status": "free"
+						},
+						{
+							"status": "free"
+						},
+						{
+							"status": "occupied"
+						},
+						{
+							"status": "occupied"
+						},
+						{
+							"status": "occupied"
+						},
+						{
+							"status": "occupied"
+						},
+						{
+							"status": "occupied"
+						},
+						{
+							"status": "occupied"
+						},
+						{
+							"status": "occupied"
+						}
+					]
+				},
+				{
+					"columnsCount": 2,
+					"seats": [
+						{
+							"status": "occupied"
+						},
+						{
+							"status": "occupied"
+						},
+						{
+							"status": "occupied"
+						},
+						{
+							"status": "occupied"
+						},
+						{
+							"status": "occupied"
+						},
+						{
+							"status": "occupied"
+						},
+						{
+							"status": "occupied"
+						},
+						{
+							"status": "free"
+						},
+						{
+							"status": "occupied"
+						},
+						{
+							"status": "occupied"
+						},
+						{
+							"status": "free"
+						},
+						{
+							"status": "free"
+						}
+					]
+				}
+			]
+		},
+		{
+			"id": "joker",
+			"hall": [
+				{
+					"columnsCount": 2,
+					"seats": [
+						{
+							"status": "occupied"
+						},
+						{
+							"status": "occupied"
+						},
+						{
+							"status": "occupied"
+						},
+						{
+							"status": "occupied"
+						},
+						{
+							"status": "occupied"
+						},
+						{
+							"status": "occupied"
+						},
+						{
+							"status": "occupied"
+						},
+						{
+							"status": "occupied"
+						},
+						{
+							"status": "occupied"
+						},
+						{
+							"status": "occupied"
+						},
+						{
+							"status": "occupied"
+						},
+						{
+							"status": "occupied"
+						}
+					]
+				},
+				{
+					"columnsCount": 4,
+					"seats": [
+						{
+							"status": "free"
+						},
+						{
+							"status": "free"
+						},
+						{
+							"status": "free"
+						},
+						{
+							"status": "free"
+						},
+						{
+							"status": "free"
+						},
+						{
+							"status": "free"
+						},
+						{
+							"status": "free"
+						},
+						{
+							"status": "free"
+						},
+						{
+							"status": "free"
+						},
+						{
+							"status": "free"
+						},
+						{
+							"status": "free"
+						},
+						{
+							"status": "free"
+						},
+						{
+							"status": "free"
+						},
+						{
+							"status": "free"
+						},
+						{
+							"status": "free"
+						},
+						{
+							"status": "free"
+						},
+						{
+							"status": "free"
+						},
+						{
+							"status": "free"
+						},
+						{
+							"status": "free"
+						},
+						{
+							"status": "free"
+						},
+						{
+							"status": "free"
+						},
+						{
+							"status": "free"
+						},
+						{
+							"status": "free"
+						},
+						{
+							"status": "free"
+						}
+					]
+				},
+				{
+					"columnsCount": 2,
+					"seats": [
+						{
+							"status": "occupied"
+						},
+						{
+							"status": "occupied"
+						},
+						{
+							"status": "occupied"
+						},
+						{
+							"status": "occupied"
+						},
+						{
+							"status": "occupied"
+						},
+						{
+							"status": "occupied"
+						},
+						{
+							"status": "occupied"
+						},
+						{
+							"status": "occupied"
+						},
+						{
+							"status": "occupied"
+						},
+						{
+							"status": "occupied"
+						},
+						{
+							"status": "occupied"
+						},
+						{
+							"status": "occupied"
+						}
+					]
+				}
+			]
+		},
+		{
+			"id": "toy-story",
+			"hall": [
+				{
+					"columnsCount": 2,
+					"seats": [
+						{
+							"status": "occupied"
+						},
+						{
+							"status": "occupied"
+						},
+						{
+							"status": "occupied"
+						},
+						{
+							"status": "occupied"
+						},
+						{
+							"status": "free"
+						},
+						{
+							"status": "free"
+						},
+						{
+							"status": "free"
+						},
+						{
+							"status": "free"
+						},
+						{
+							"status": "free"
+						},
+						{
+							"status": "free"
+						},
+						{
+							"status": "free"
+						},
+						{
+							"status": "free"
+						}
+					]
+				},
+				{
+					"columnsCount": 4,
+					"seats": [
+						{
+							"status": "occupied"
+						},
+						{
+							"status": "occupied"
+						},
+						{
+							"status": "occupied"
+						},
+						{
+							"status": "occupied"
+						},
+						{
+							"status": "occupied"
+						},
+						{
+							"status": "occupied"
+						},
+						{
+							"status": "free"
+						},
+						{
+							"status": "free"
+						},
+						{
+							"status": "free"
+						},
+						{
+							"status": "occupied"
+						},
+						{
+							"status": "occupied"
+						},
+						{
+							"status": "free"
+						},
+						{
+							"status": "free"
+						},
+						{
+							"status": "free"
+						},
+						{
+							"status": "free"
+						},
+						{
+							"status": "free"
+						},
+						{
+							"status": "occupied"
+						},
+						{
+							"status": "occupied"
+						},
+						{
+							"status": "occupied"
+						},
+						{
+							"status": "occupied"
+						},
+						{
+							"status": "occupied"
+						},
+						{
+							"status": "occupied"
+						},
+						{
+							"status": "occupied"
+						},
+						{
+							"status": "occupied"
+						}
+					]
+				},
+				{
+					"columnsCount": 2,
+					"seats": [
+						{
+							"status": "free"
+						},
+						{
+							"status": "free"
+						},
+						{
+							"status": "free"
+						},
+						{
+							"status": "free"
+						},
+						{
+							"status": "occupied"
+						},
+						{
+							"status": "occupied"
+						},
+						{
+							"status": "free"
+						},
+						{
+							"status": "free"
+						},
+						{
+							"status": "free"
+						},
+						{
+							"status": "free"
+						},
+						{
+							"status": "occupied"
+						},
+						{
+							"status": "occupied"
+						}
+					]
+				}
+			]
+		},
+		{
+			"id": "lion-king",
+			"hall": [
+				{
+					"columnsCount": 2,
+					"seats": [
+						{
+							"status": "free"
+						},
+						{
+							"status": "free"
+						},
+						{
+							"status": "free"
+						},
+						{
+							"status": "free"
+						},
+						{
+							"status": "free"
+						},
+						{
+							"status": "free"
+						},
+						{
+							"status": "free"
+						},
+						{
+							"status": "free"
+						},
+						{
+							"status": "free"
+						},
+						{
+							"status": "free"
+						},
+						{
+							"status": "free"
+						},
+						{
+							"status": "free"
+						}
+					]
+				},
+				{
+					"columnsCount": 4,
+					"seats": [
+						{
+							"status": "free"
+						},
+						{
+							"status": "free"
+						},
+						{
+							"status": "free"
+						},
+						{
+							"status": "free"
+						},
+						{
+							"status": "free"
+						},
+						{
+							"status": "free"
+						},
+						{
+							"status": "free"
+						},
+						{
+							"status": "free"
+						},
+						{
+							"status": "free"
+						},
+						{
+							"status": "free"
+						},
+						{
+							"status": "free"
+						},
+						{
+							"status": "free"
+						},
+						{
+							"status": "free"
+						},
+						{
+							"status": "free"
+						},
+						{
+							"status": "free"
+						},
+						{
+							"status": "free"
+						},
+						{
+							"status": "free"
+						},
+						{
+							"status": "free"
+						},
+						{
+							"status": "free"
+						},
+						{
+							"status": "free"
+						},
+						{
+							"status": "free"
+						},
+						{
+							"status": "free"
+						},
+						{
+							"status": "free"
+						},
+						{
+							"status": "free"
+						}
+					]
+				},
+				{
+					"columnsCount": 2,
+					"seats": [
+						{
+							"status": "free"
+						},
+						{
+							"status": "free"
+						},
+						{
+							"status": "free"
+						},
+						{
+							"status": "free"
+						},
+						{
+							"status": "free"
+						},
+						{
+							"status": "free"
+						},
+						{
+							"status": "free"
+						},
+						{
+							"status": "free"
+						},
+						{
+							"status": "free"
+						},
+						{
+							"status": "free"
+						},
+						{
+							"status": "free"
+						},
+						{
+							"status": "free"
+						}
+					]
+				}
+			]
+		}
+	],
+	"$schema": "./node_modules/json-server/schema.json"
 }

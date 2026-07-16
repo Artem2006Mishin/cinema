@@ -3,8 +3,6 @@ import { updateCinemaData } from "./cinema.js";
 import { updateReservationState } from "./reservation.js";
 import { API_URL } from "./api.js";
 
-const OPTION_ID = "optionId"; // Сделать файл с такими названиями, потому что cinema его тоже исспльзует
-
 function getOptionId() {
 	const options = $movieDropdown.options;
 	const selectedIndex = $movieDropdown.selectedIndex;
@@ -20,7 +18,7 @@ function createOption(movie) {
 }
 
 function setDropdownValue() {
-	const id = getFromStorage(OPTION_ID);
+	const id = getFromStorage("optionId");
 	const option = document.querySelector(`#${id}`);
 	option.selected = true;
 }
@@ -50,7 +48,7 @@ async function getMovies() {
 
 async function handleDropdownChange() {
 	const id = getOptionId($movieDropdown);
-	saveToStorage(OPTION_ID, id);
+	saveToStorage("optionId", id);
 	await updateCinemaData();
 	updateReservationState();
 }

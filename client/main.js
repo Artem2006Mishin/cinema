@@ -1,14 +1,10 @@
 import { initMovies } from "./utils/movies.js";
 import { initCinema } from "./utils/cinema.js";
 import { initReservation } from "./utils/reservation.js";
-import { saveToStorage } from "./utils/storage.js";
-
-const $initStorageBtn = document.querySelector("#init-storage");
-$initStorageBtn.addEventListener("click", () => {
-	saveToStorage("optionId", "avengers-endgame");
-});
+import { initStorage } from "./utils/storage.js";
 
 async function main() {
+	initStorage("optionId", "avengers-endgame");
 	await initMovies();
 	await initCinema();
 	initReservation();

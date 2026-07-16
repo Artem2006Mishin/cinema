@@ -5,3 +5,10 @@ export function getFromStorage(key) {
 export function saveToStorage(key, value) {
 	localStorage.setItem(key, value);
 }
+
+export function initStorage(key, value) {
+	const isEmpty = !getFromStorage(key);
+	if (isEmpty) {
+		saveToStorage(key, value);
+	}
+}
