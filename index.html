@@ -4,11 +4,15 @@
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<title>Movie seats booking</title>
-		<link rel="stylesheet" href="style.css" />
-		<script type="module" src="main.js"></script>
+		<link rel="stylesheet" href="client/styles/main.css" />
+		<script type="module" src="client/scripts/main.js"></script>
 	</head>
 	<body>
 		<div class="reservation">
+			<div class="error error--hide">
+				Failed to load movies: HTTP error: 404
+			</div>
+
 			<div class="reservation__switcher">
 				<label for="movie-dropdown">Pick a movie:</label>
 				<select id="movie-dropdown" class="reservation__dropdown"></select>
