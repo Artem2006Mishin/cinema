@@ -1,34 +1,67 @@
-import { MovieDropdown } from "../components/MovieDropdown.js";
+import { Dropdown } from "../components/Dropdown.js";
 import { STORAGE } from "../config/constants.js";
+import { isFound, isFunction, isRequired } from "../utils/checks.js";
 
 export class MoviesController {
 	#movieService;
 	#storageService;
 	#movieDropdown;
+	#movieChangeHandler;
 
 	constructor(movieService, storageService) {
 		this.#movieService = movieService;
 		this.#storageService = storageService;
-		this.#movieDropdown = new MovieDropdown();
+		this.#movieDropdown = new Dropdown();
+		this.#movieChangeHandler = null;
+	}
+
+	onMovieChange(callback) {
+		isFunction(callback, "MoviesController");
+		this.#movieChangeHandler = callback;
 	}
 
 	async init() {
-		await this.#fetchAndRenderMovies();
+		await this.#loadMovies();
 		this.#restoreSelectedOption();
-		this.#movieDropdown.onChange((id) => this.#saveSelectedOption(id));
+
+		const optionId = this.#movieDropdown.getSelectedOptionId();
+		await this.#handleMovieChange(optionId);
+
+		this.#movieDropdown.onChange((id) => this.#handleMovieChange(id));
 	}
 
 	#restoreSelectedOption() {
-		const optionId = this.#storageService.get(STORAGE.OPTION_ID);
+		const optionId = this.#getOptionIdFromStorage();
 		this.#movieDropdown.selectOption(optionId);
 	}
 
-	#saveSelectedOption(id) {
-		this.#storageService.set(STORAGE.OPTION_ID, id);
+	#getOptionIdFromStorage() {
+		const optionId = this.#storageService.get(STORAGE.SELECTED_OPTION_ID);
+		isFound(optionId, "optionId", "MovieDropdown.restoreSelectedOption");
+		return optionId;
 	}
 
-	async #fetchAndRenderMovies() {
+	#setOptionIdToStorage(id) {
+		isRequired(id, "id", "MoviesController.handleMovieChange");
+		this.#storageService.set(STORAGE.SELECTED_OPTION_ID, id);
+	}
+
+	async #loadMovies() {
 		const movies = await this.#movieService.getMovies();
+		isFound(movies, "movies", "MoviesController.loadMovies");
 		this.#movieDropdown.render(movies);
+	}
+
+	async #handleMovieChange(optionId) {
+		try {
+			this.#setOptionIdToStorage(optionId);
+
+			const ticketPrice = this.#movieDropdown.getSelectedOptionValue();
+			isFound(ticketPrice, "ticketPrice", "MoviesController.handleMovieChange");
+
+			await this.#movieChangeHandler?.(ticketPrice, optionId);
+		} catch (error) {
+			console.log(error.message);
+		}
 	}
 }

@@ -5,9 +5,9 @@ export class CinemaSeat {
 
 	constructor({ status, id }) {
 		this.#seatEl = document.createElement("div");
+		this.#seatEl.id = id;
 		this.#seatEl.classList.add("seat");
 		this.#seatEl.classList.add(`seat--${status}`);
-		this.#seatEl.id = id;
 	}
 
 	get seatEl() {
@@ -18,7 +18,11 @@ export class CinemaSeat {
 		return this.#seatEl.classList.contains(`seat--${SEAT_STATUS.FREE}`);
 	}
 
-	toggleStatus() {
+	isSelected() {
+		return this.#seatEl.classList.contains(`seat--${SEAT_STATUS.SELECTED}`);
+	}
+
+	toggleSelected() {
 		this.#seatEl.classList.toggle(`seat--${SEAT_STATUS.SELECTED}`);
 	}
 }

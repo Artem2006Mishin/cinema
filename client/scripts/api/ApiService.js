@@ -1,4 +1,6 @@
 import { BASE_URL } from "../config/constants.js";
+import { HttpError, NetworkError } from "../errors/ApiErrors.js";
+import { isRequired } from "../utils/checks.js";
 
 export class ApiService {
 	#baseUrl;
@@ -8,18 +10,15 @@ export class ApiService {
 	}
 
 	async get(resource, id = "") {
+		isRequired(resource, "resource", "ApiService");
 		const url = this.#buildUrl(resource, id);
-		const response = await fetch(url);
-
-		if (!response.ok) {
-			throw new Error(`HTTP error: ${response.status}`);
-		}
-
-		const data = await response.json();
-		return data;
+		return this.#makeRequest(url);
 	}
 
 	async put(payload, resource, id = "") {
+		isRequired(payload, "payload", "ApiService");
+		isRequired(resource, "resource", "ApiService");
+
 		const url = this.#buildUrl(resource, id);
 		const options = {
 			method: "PUT",
@@ -29,17 +28,26 @@ export class ApiService {
 			body: JSON.stringify(payload),
 		};
 
-		const response = await fetch(url, options);
-
-		if (!response.ok) {
-			throw new Error(`HTTP error: ${response.status}`);
-		}
-
-		const data = await response.json();
-		return data;
+		return this.#makeRequest(url, options);
 	}
 
 	#buildUrl(resource, id) {
 		return `${this.#baseUrl}/${resource}${id ? "/" + id : ""}`;
+	}
+
+	async #makeRequest(url, options = null) {
+		let response;
+
+		try {
+			response = await fetch(url, options);
+		} catch {
+			throw new NetworkError();
+		}
+
+		if (!response.ok) {
+			throw new HttpError(response.status);
+		}
+
+		return response.json();
 	}
 }

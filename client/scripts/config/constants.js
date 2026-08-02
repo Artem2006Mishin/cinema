@@ -9,7 +9,8 @@ export const RESOURCE_URL = {
 };
 
 export const STORAGE = {
-	OPTION_ID: "optionId",
+	SELECTED_OPTION_ID: "selectedOptionId",
+	SELECTED_SEAT_IDS: "selectedSeatIds",
 };
 
 export const SEAT_STATUS = {
@@ -17,3 +18,5 @@ export const SEAT_STATUS = {
 	SELECTED: "selected",
 	OCCUPIED: "occupied",
 };
+
+export const ERROR_NOTIFICATION_VISIBLE = "error-notification--visible";

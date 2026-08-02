@@ -4,17 +4,57 @@ import { CinemaService } from "./api/CinemaService.js";
 import { StorageService } from "./storage/StorageService.js";
 import { MoviesController } from "./controllers/MoviesController.js";
 import { CinemaController } from "./controllers/CinemaController.js";
+import { ReservationController } from "./controllers/ReservationController.js";
+import { STORAGE } from "./config/constants.js";
+import { HttpError, NetworkError } from "./errors/ApiErrors.js";
+import { ErrorNotification } from "./components/ErrorNotification.js";
 
 const apiService = new ApiService();
 const movieService = new MovieService(apiService);
 const cinemaService = new CinemaService(apiService);
 const storageService = new StorageService();
+let errorNotification;
 
-const moviesController = new MoviesController(movieService, storageService);
-const cinemaController = new CinemaController(cinemaService, storageService);
+try {
+	errorNotification = new ErrorNotification();
+	errorNotification.hideError();
 
-await moviesController.init();
-await cinemaController.init();
+	const moviesController = new MoviesController(movieService, storageService);
+	const cinemaController = new CinemaController(cinemaService, storageService);
+	const reservationController = new ReservationController();
 
-// ловить ошибку когда нет интернета
-// сделать сохраниение в LS выделенных мест
+	moviesController.onMovieChange((ticketPrice, optionId) => {
+		cinemaController.respondToMovieChange(optionId);
+		reservationController.ticketPrice = ticketPrice;
+	});
+
+	cinemaController.onSeatSelect((seatsCount) => {
+		reservationController.respondToSeatsSelect(seatsCount);
+	});
+
+	reservationController.onSeatsReserve(() => {
+		cinemaController.respondToSeatsReserve();
+	});
+
+	// нужно ли раскидать эту логику по компонентам
+	storageService.init(STORAGE.SELECTED_OPTION_ID, "avengers-endgame");
+	storageService.init(STORAGE.SELECTED_SEAT_IDS, []);
+
+	await moviesController.init();
+	await cinemaController.init();
+	reservationController.init();
+} catch (error) {
+	if (error instanceof NetworkError) {
+		errorNotification.showError("Check your internet connection");
+	} else if (error instanceof HttpError) {
+		errorNotification.showError("Service is temporarily unavailable");
+	}
+
+	console.error(error.message);
+}
+
+// ловить ошибку когда нет интернета и когда не запущен db.json
+// добавить проверку на undefined данных в функциях
+// сделать иконку-загрузку на весь экран!b
+
+// не нужно ли оборачивать () => в async?
