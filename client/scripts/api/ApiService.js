@@ -5,7 +5,7 @@ import { isRequired } from "../utils/checks.js";
 export class ApiService {
 	#baseUrl;
 
-	constructor(baseUrl = BASE_URL.DEVELOPMENT) {
+	constructor(baseUrl = BASE_URL.PRODUCTION) {
 		this.#baseUrl = baseUrl;
 	}
 
