@@ -37,17 +37,25 @@ export class CinemaController {
 
 	async respondToSeatsReserve() {
 		this.#setOccupiedStatusForSelectedSeats();
+
 		this.#cinemaData = await this.#cinemaService.saveCinemaData(
 			this.#cinemaData,
 			this.#cinemaData.id,
 		);
+
 		this.#cinemaHall.render(this.#cinemaData.hall);
+
 		this.#storageService.set(STORAGE.SELECTED_SEAT_IDS, []);
 		this.#seatSelectHandler(0);
 	}
 
 	#setOccupiedStatusForSelectedSeats() {
 		const seatIds = this.#storageService.get(STORAGE.SELECTED_SEAT_IDS);
+		isFound(
+			seatIds,
+			"seatIds",
+			"CinemaController.setOccupiedStatusForSelectedSeats",
+		);
 		const allSeats = this.#cinemaData.hall.flatMap((group) => group.seats);
 		seatIds.forEach((id) => {
 			const selectedSeat = allSeats.find((seat) => seat.id === id);

@@ -23,8 +23,8 @@ try {
 	const cinemaController = new CinemaController(cinemaService, storageService);
 	const reservationController = new ReservationController();
 
-	moviesController.onMovieChange((ticketPrice, optionId) => {
-		cinemaController.respondToMovieChange(optionId);
+	moviesController.onMovieChange(async (ticketPrice, optionId) => {
+		await cinemaController.respondToMovieChange(optionId);
 		reservationController.ticketPrice = ticketPrice;
 	});
 
@@ -52,9 +52,3 @@ try {
 
 	console.error(error.message);
 }
-
-// ловить ошибку когда нет интернета и когда не запущен db.json
-// добавить проверку на undefined данных в функциях
-// сделать иконку-загрузку на весь экран!b
-
-// не нужно ли оборачивать () => в async?

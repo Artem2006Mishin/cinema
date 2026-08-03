@@ -4,12 +4,6 @@ export function isRequired(value, name, place) {
 	}
 }
 
-export function isFoundForSelector(value, selector, place) {
-	if (value === undefined || value === null || value === "") {
-		throw new Error(`${place}: element not found for selector ${selector}`);
-	}
-}
-
 export function isFound(value, name, place) {
 	if (value === undefined || value === null || value === "") {
 		throw new Error(`${place}: ${name} not found`);

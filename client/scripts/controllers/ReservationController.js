@@ -1,3 +1,5 @@
+import { isFound } from "../utils/checks.js";
+
 export class ReservationController {
 	#reserveBtnEl;
 	#totalPriceEl;
@@ -5,11 +7,24 @@ export class ReservationController {
 	#ticketPrice;
 	#reserveSeatsHandler;
 
-	// селекторы по умолчанию?
 	constructor() {
 		this.#reserveBtnEl = document.querySelector(".reservation__button");
+		isFound(
+			this.#reserveBtnEl,
+			".reservation__button",
+			"ReservationController",
+		);
+
 		this.#totalPriceEl = document.querySelector("#total-price");
+		isFound(this.#totalPriceEl, "#total-price", "ReservationController");
+
 		this.#selectedSeatsCountEl = document.querySelector("#selected-seat-count");
+		isFound(
+			this.#selectedSeatsCountEl,
+			"#selected-seat-count",
+			"ReservationController",
+		);
+
 		this.#ticketPrice = 0;
 		this.#reserveSeatsHandler = null;
 	}

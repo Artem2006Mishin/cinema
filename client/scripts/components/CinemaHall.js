@@ -1,4 +1,4 @@
-import { isFoundForSelector, isFunction, isRequired } from "../utils/checks.js";
+import { isFound, isFunction, isRequired } from "../utils/checks.js";
 import { CinemaSeat } from "./CinemaSeat.js";
 
 export class CinemaHall {
@@ -8,7 +8,7 @@ export class CinemaHall {
 
 	constructor(selector = ".cinema__hall") {
 		this.#hallEl = document.querySelector(selector);
-		isFoundForSelector(this.#hallEl, selector, "CinemaHall");
+		isFound(this.#hallEl, selector, "CinemaHall");
 		this.#seatsMap = new Map();
 		this.#onSelectHandler = null;
 		this.#hallEl.addEventListener("click", (event) => this.#handleClick(event));

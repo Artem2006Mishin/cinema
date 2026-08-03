@@ -1,9 +1,11 @@
 import { RESOURCE_URL } from "../config/constants.js";
+import { isRequired } from "../utils/checks.js";
 
 export class CinemaService {
 	#apiService;
 
 	constructor(apiService) {
+		isRequired(apiService, "apiService", "CinemaService");
 		this.#apiService = apiService;
 	}
 

@@ -1,4 +1,4 @@
-import { isRequired, isFoundForSelector, isFunction } from "../utils/checks.js";
+import { isRequired, isFound, isFunction } from "../utils/checks.js";
 
 export class Dropdown {
 	#dropdownEl;
@@ -6,7 +6,7 @@ export class Dropdown {
 
 	constructor(selector = "#movie-dropdown") {
 		this.#dropdownEl = document.querySelector(selector);
-		isFoundForSelector(this.#dropdownEl, selector, "MovieDropdown");
+		isFound(this.#dropdownEl, selector, "MovieDropdown");
 
 		this.#changeHandler = null;
 		this.#dropdownEl.addEventListener("change", () => this.#handleChange());
