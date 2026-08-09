@@ -5,7 +5,7 @@ export class ReservationController {
 	#totalPriceEl;
 	#selectedSeatsCountEl;
 	#ticketPrice;
-	#reserveSeatsHandler;
+	#onSeatsReserve;
 
 	constructor() {
 		this.#reserveBtnEl = document.querySelector(".reservation__button");
@@ -24,28 +24,28 @@ export class ReservationController {
 			"#selected-seat-count",
 			"ReservationController",
 		);
-
-		this.#ticketPrice = 0;
-		this.#reserveSeatsHandler = null;
 	}
 
 	set ticketPrice(ticketPrice) {
 		this.#ticketPrice = ticketPrice;
 	}
 
-	init() {
+	init(ticketPrice, selectedSeatsCount) {
+		this.#ticketPrice = ticketPrice;
+		this.respondToSeatsSelect(selectedSeatsCount);
+
 		this.#reserveBtnEl.addEventListener("click", (event) => {
 			this.#handleReserveBtnClick(event);
 		});
 	}
 
+	onSeatsReserve(callback) {
+		this.#onSeatsReserve = callback;
+	}
+
 	respondToSeatsSelect(seatsCount) {
 		this.#calculatePrice(seatsCount);
 		this.#toggleReserveBtn(seatsCount);
-	}
-
-	onSeatsReserve(callback) {
-		this.#reserveSeatsHandler = callback;
 	}
 
 	#calculatePrice(seatsCount) {
@@ -65,6 +65,6 @@ export class ReservationController {
 
 	async #handleReserveBtnClick(event) {
 		event.preventDefault();
-		await this.#reserveSeatsHandler?.();
+		await this.#onSeatsReserve?.();
 	}
 }

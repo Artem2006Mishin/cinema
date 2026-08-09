@@ -1,0 +1,51 @@
+@import url("https://fonts.googleapis.com/css2?family=Aboreto&family=Google+Sans:ital,opsz,wght@0,17..18,400..700;1,17..18,400..700&display=swap");
+
+:root {
+	--background-clr: #262624;
+	--select-background-clr: #3e3e38;
+	--light-white-clr: #e7effd;
+	--white-clr: #d2d2d2;
+	--gray-clr: #777;
+	--black-clr: #20212c;
+	--orange-clr: #ff6234;
+	--red-clr: #d32f2f;
+	--blue-clr: #1b89c0;
+}
+
+*,
+*::before,
+*::after {
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+}
+
+::selection {
+	color: var(--white-clr);
+	background-color: var(--select-background-clr);
+}
+
+body {
+	font-family: "Google Sans", sans-serif;
+	font-size: 18px;
+	color: var(--white-clr);
+	background-color: var(--background-clr);
+}
+
+ul {
+	list-style: none;
+}
+
+a {
+	text-decoration: none;
+}
+
+input {
+	outline: none;
+}
+
+.container {
+	max-width: 1200px;
+	margin: 0 auto;
+	padding: 40px 20px;
+}

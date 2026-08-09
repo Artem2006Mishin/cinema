@@ -10,10 +10,10 @@ export class CinemaService {
 	}
 
 	async getCinemaData(id) {
-		return await this.#apiService.get(RESOURCE_URL.CINEMA, id);
+		return this.#apiService.get(RESOURCE_URL.CINEMA, id);
 	}
 
 	async saveCinemaData(payload, id) {
-		return await this.#apiService.put(payload, RESOURCE_URL.CINEMA, id);
+		return this.#apiService.put(payload, RESOURCE_URL.CINEMA, id);
 	}
 }

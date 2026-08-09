@@ -1,3 +1,5 @@
+import { isRequired } from "../utils/checks.js";
+
 export class StorageService {
 	#storage;
 
@@ -6,8 +8,8 @@ export class StorageService {
 	}
 
 	get(key) {
+		isRequired(key, "key", "StorageService.get");
 		const data = this.#storage.getItem(key);
-		if (!data) return null;
 
 		try {
 			return JSON.parse(data);
@@ -17,17 +19,24 @@ export class StorageService {
 	}
 
 	set(key, value) {
+		isRequired(key, "key", "StorageService.set");
+		isRequired(value, "value", "StorageService.set");
+
 		const data = typeof value === "string" ? value : JSON.stringify(value);
 		this.#storage.setItem(key, data);
 	}
 
 	init(key, value) {
+		isRequired(key, "key", "StorageService.init");
+		isRequired(value, "value", "StorageService.init");
+
 		if (this.get(key) === null) {
 			this.set(key, value);
 		}
 	}
 
 	remove(key) {
+		isRequired(key, "key", "StorageService.remove");
 		this.#storage.removeItem(key);
 	}
 }

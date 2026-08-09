@@ -2,53 +2,67 @@ import { isFound, isFunction, isRequired } from "../utils/checks.js";
 import { CinemaSeat } from "./CinemaSeat.js";
 
 export class CinemaHall {
-	#hallEl;
-	#seatsMap;
-	#onSelectHandler;
+	#cinemaHallEl;
+	#cinemaSeatsMap;
+	#onSelect;
 
 	constructor(selector = ".cinema__hall") {
-		this.#hallEl = document.querySelector(selector);
-		isFound(this.#hallEl, selector, "CinemaHall");
-		this.#seatsMap = new Map();
-		this.#onSelectHandler = null;
-		this.#hallEl.addEventListener("click", (event) => this.#handleClick(event));
-	}
+		this.#cinemaHallEl = document.querySelector(selector);
+		isFound(this.#cinemaHallEl, selector, "CinemaHall");
 
-	render(hall) {
-		isRequired(hall, "hall", "CinemaHall.render");
+		this.#cinemaSeatsMap = new Map();
+		this.#onSelect = null;
 
-		this.#hallEl.innerHTML = "";
-		this.#seatsMap.clear();
-
-		hall.forEach((group) => {
-			const groupEl = this.#createGroup(group);
-			this.#hallEl.append(groupEl);
-		});
-	}
-
-	selectSeats(seatIds) {
-		isRequired(seatIds, "seatIds", "CinemaHall.render");
-
-		seatIds.forEach((id) => {
-			const cinemaSeat = this.#seatsMap.get(id);
-			cinemaSeat?.toggleSelected();
-		});
+		this.#cinemaHallEl.addEventListener("click", (event) =>
+			this.#handleClick(event),
+		);
 	}
 
 	onSelect(callback) {
 		isFunction(callback, "CinemaHall");
-		this.#onSelectHandler = callback;
+		this.#onSelect = callback;
 	}
 
-	#createGroup({ seats, columnsCount }) {
+	getSelectedSeatIds() {
+		const selectedSeatIds = [];
+		for (const [id, seat] of this.#cinemaSeatsMap) {
+			if (seat.isSelected()) {
+				selectedSeatIds.push(id);
+			}
+		}
+		return selectedSeatIds;
+	}
+
+	render(cinemaHallData) {
+		isRequired(cinemaHallData, "cinemaHallData", "CinemaHall.render");
+
+		this.#cinemaHallEl.innerHTML = "";
+		this.#cinemaSeatsMap.clear();
+
+		cinemaHallData.forEach((groupData) => {
+			const groupEl = this.#createCinemaGroup(groupData);
+			this.#cinemaHallEl.append(groupEl);
+		});
+	}
+
+	selectSeats(seatIds) {
+		isRequired(seatIds, "seatIds", "CinemaHall.selectSeats");
+
+		seatIds.forEach((id) => {
+			const cinemaSeat = this.#cinemaSeatsMap.get(id);
+			cinemaSeat?.toggleSelected();
+		});
+	}
+
+	#createCinemaGroup({ seats, columnsCount }) {
 		const groupEl = document.createElement("div");
 
 		groupEl.classList.add("cinema__group");
 		groupEl.style.setProperty("--columns-count", columnsCount);
 
-		seats.forEach((seat) => {
-			const cinemaSeat = new CinemaSeat(seat);
-			this.#seatsMap.set(seat.id, cinemaSeat);
+		seats.forEach((seatData) => {
+			const cinemaSeat = new CinemaSeat(seatData);
+			this.#cinemaSeatsMap.set(seatData.id, cinemaSeat);
 			groupEl.append(cinemaSeat.seatEl);
 		});
 
@@ -59,10 +73,10 @@ export class CinemaHall {
 		const seatEl = event.target.closest(".seat");
 		if (!seatEl) return;
 
-		const cinemaSeat = this.#seatsMap.get(seatEl.id);
+		const cinemaSeat = this.#cinemaSeatsMap.get(seatEl.id);
 		if (!cinemaSeat || !cinemaSeat.isFree()) return;
 
 		cinemaSeat.toggleSelected();
-		this.#onSelectHandler?.(this.#seatsMap);
+		this.#onSelect?.(this.#cinemaSeatsMap);
 	}
 }

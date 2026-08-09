@@ -1,118 +1,67 @@
-@import url("https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap");
-
-:root {
-	--black-clr: #20212c;
-	--white-clr: #d2d2d2;
-	--gray-clr: #444451;
-	--light-gray-clr: #777;
-	--blue-clr: #6feaf6;
-	--red-clr: #c24247;
-}
-
-*,
-*::before,
-*::after {
-	box-sizing: border-box;
-	margin: 0;
-	padding: 0;
-}
-
-body {
-	font-family: "Lato", sans-serif;
-	font-size: 18px;
-}
+@import url("./base.css");
+@import url("./components/navigation.css");
+@import url("./components/header.css");
+@import url("./components/drum.css");
+@import url("./components/cinema.css");
+@import url("./components/seat.css");
 
 .reservation {
 	position: relative;
 	display: flex;
-	flex-direction: column;
+	justify-content: space-around;
 	align-items: center;
-	justify-content: center;
-	gap: 20px;
-	padding: 20px 10px;
+	min-height: 80vh;
 	color: var(--white-clr);
-	background-color: var(--black-clr);
 }
 
-.reservation__switcher {
+.reservation__movie-switcher {
 	display: flex;
-	gap: 8px;
+	align-items: center;
+	gap: 50px;
+}
+
+.reservation__label {
+	font-size: 60px;
+	font-weight: 600;
 }
 
 .reservation__dropdown {
+	height: fit-content;
 	padding: 5px 10px;
 	border-radius: 10px;
-	border: 0;
+	border: none;
 	outline: 0;
-	font-size: 14px;
-	color: var(--black-clr);
-	background-color: var(--white-clr);
+	font-size: 20px;
 	appearance: none;
+}
+
+.reservation__main {
+	width: 480px;
+	height: 480px;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	gap: 20px;
 }
 
 .reservation__legend {
 	display: flex;
 	justify-content: space-between;
-	align-items: center;
-	gap: 20px;
-	padding: 8px 10px;
-	border-radius: 5px;
-	list-style: none;
-	color: var(--light-gray-clr);
-	background-color: rgba(0, 0, 0, 0.1);
+	gap: 40px;
 }
 
 .reservation__legend-item {
 	display: flex;
-	justify-content: center;
-	align-items: center;
-	gap: 5px;
+	gap: 10px;
 }
 
-.cinema {
-	perspective: 500px;
+.reservation__legend-text {
+	font-size: 18px;
 }
 
-.cinema__screen {
-	width: 280px;
-	height: 70px;
-	margin-bottom: 20px;
-	background-color: var(--white-clr);
-	box-shadow: 0 3px 10px rgba(255, 255, 255, 0.8);
-	transform: rotateX(-45deg);
-}
-
-.cinema__hall {
-	display: flex;
-	justify-content: center;
-	gap: 30px;
-}
-
-.cinema__group {
-	display: grid;
-	grid-template-columns: repeat(var(--columns-count), 20px);
-	gap: 8px;
-}
-
-.cinema__hall .seat:not(.seat--occupied):hover {
-	cursor: pointer;
-	transform: scale(1.2);
-}
-
-.seat {
-	width: 20px;
-	height: 15px;
-	border-top-left-radius: 10px;
-	border-top-right-radius: 10px;
-	background-color: var(--gray-clr);
-}
-
-.seat--selected {
-	background-color: var(--blue-clr);
-}
-
-.seat--occupied {
-	background-color: var(--white-clr);
+.reservation__receipt {
+	font-size: 20px;
 }
 
 .reservation__receipt-span {
@@ -120,19 +69,26 @@ body {
 }
 
 .reservation__button {
-	width: 100px;
-	padding: 5px;
-	border-radius: 10px;
+	width: 180px;
+	padding: 8px 20px;
+	border-radius: 6px;
 	border: 0;
+
 	outline: 0;
-	font-size: 14px;
-	color: var(--black-clr);
-	background-color: var(--white-clr);
+	font-size: 20px;
+	color: var(--white-clr);
+	border: 1px solid var(--orange-clr);
+	/* background-color: var(--orange-clr); */
+	background: transparent;
 	cursor: pointer;
+	transition:
+		color 0.4s ease,
+		border-color 0.4s ease;
 }
 
 .reservation__button--inactive {
-	background-color: var(--light-gray-clr);
+	border: 1px solid var(--select-background-clr);
+	color: var(--gray-clr);
 	cursor: not-allowed;
 }
 
@@ -143,7 +99,8 @@ body {
 	transform: translate(-50%, -60px);
 	transition: transform 0.5 ease;
 
-	display: flex;
+	/* display: flex; */
+	display: none;
 	justify-content: center;
 	align-items: center;
 

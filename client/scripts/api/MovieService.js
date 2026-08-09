@@ -10,6 +10,6 @@ export class MovieService {
 	}
 
 	async getMovies() {
-		return await this.#apiService.get(RESOURCE_URL.MOVIES);
+		return this.#apiService.get(RESOURCE_URL.MOVIES);
 	}
 }

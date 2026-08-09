@@ -1,0 +1,16 @@
+.header {
+	display: flex;
+	gap: 60px;
+	padding-top: 20px;
+}
+
+.header__title {
+	font-family: "Aboreto", sans-serif;
+	font-size: 34px;
+	font-weight: 400;
+	user-select: none;
+}
+
+.header__navigation {
+	flex-grow: 1;
+}

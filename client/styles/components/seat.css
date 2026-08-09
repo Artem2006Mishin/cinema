@@ -1,0 +1,15 @@
+.seat {
+	width: 30px;
+	height: 22px;
+	border-top-left-radius: 20px;
+	border-top-right-radius: 20px;
+	background-color: var(--gray-clr);
+}
+
+.seat--selected {
+	background-color: var(--blue-clr);
+}
+
+.seat--occupied {
+	background-color: var(--white-clr);
+}

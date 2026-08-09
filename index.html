@@ -8,53 +8,73 @@
 		<script type="module" src="client/scripts/main.js"></script>
 	</head>
 	<body>
-		<div class="reservation">
-			<div id="error-notification" class="error-notification"></div>
+		<header class="header container">
+			<h2 class="header__title">My Cinema</h2>
 
-			<div class="reservation__switcher">
-				<label for="movie-dropdown">Pick a movie:</label>
-				<select id="movie-dropdown" class="reservation__dropdown"></select>
+			<nav class="header__navigation navigation">
+				<ul class="navigation__list">
+					<li class="navigation__item">
+						<a class="navigation__link" href="./index.html">Фильмы</a>
+					</li>
+					<li class="navigation__item">
+						<a
+							class="navigation__link"
+							href="./client/scripts/pages/register/register.html"
+							>Вход / Регистрация</a
+						>
+					</li>
+				</ul>
+			</nav>
+		</header>
+
+		<main class="reservation container">
+			<div class="reservation__movie-switcher">
+				<h1 class="reservation__label">ФИЛЬМЫ</h1>
+				<div id="movie-drum" class="drum">
+					<ul class="drum__list"></ul>
+				</div>
 			</div>
 
-			<ul class="reservation__legend">
-				<li class="reservation__legend-item">
-					<div class="seat"></div>
-					<small>N/A</small>
-				</li>
-				<li class="reservation__legend-item">
-					<div class="seat seat--selected"></div>
-					<small>Selected</small>
-				</li>
-				<li class="reservation__legend-item">
-					<div class="seat seat--occupied"></div>
-					<small>Occupied</small>
-				</li>
-			</ul>
+			<div class="reservation__main">
+				<ul class="reservation__legend">
+					<li class="reservation__legend-item">
+						<div class="seat"></div>
+						<span class="reservation__legend-text">Свободно</span>
+					</li>
+					<li class="reservation__legend-item">
+						<div class="seat seat--selected"></div>
+						<span class="reservation__legend-text">Выбрано</span>
+					</li>
+					<li class="reservation__legend-item">
+						<div class="seat seat--occupied"></div>
+						<span class="reservation__legend-text">Занято</span>
+					</li>
+				</ul>
 
-			<div class="cinema">
-				<div class="cinema__screen"></div>
-				<div class="cinema__hall"></div>
+				<div class="cinema">
+					<div class="cinema__screen"></div>
+					<div class="cinema__hall"></div>
+				</div>
+
+				<p class="reservation__receipt">
+					Ты выбрал
+					<span id="selected-seat-count" class="reservation__receipt-span"
+						>0</span
+					>
+					сидений, итоговая стоимость
+					<span id="total-price" class="reservation__receipt-span">0</span>₽
+				</p>
+
+				<button
+					class="reservation__button reservation__button--inactive"
+					type="button"
+					disabled
+				>
+					Забронировать
+				</button>
 			</div>
+		</main>
 
-			<p class="reservation__receipt">
-				You have selected
-				<span id="selected-seat-count" class="reservation__receipt-span"
-					>0</span
-				>
-				seats for a price of $<span
-					id="total-price"
-					class="reservation__receipt-span"
-					>0</span
-				>
-			</p>
-
-			<button
-				class="reservation__button reservation__button--inactive"
-				type="button"
-				disabled
-			>
-				RESERVE
-			</button>
-		</div>
+		<div id="error-notification" class="error-notification"></div>
 	</body>
 </html>

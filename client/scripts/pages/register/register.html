@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="ru">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Registration</title>
+		<link rel="stylesheet" href="register.css" />
+	</head>
+	<body>
+		<header class="header container">
+			<h2 class="header__title">My Cinema</h2>
+
+			<nav class="header__navigation navigation">
+				<ul class="navigation__list">
+					<li class="navigation__item">
+						<a class="navigation__link" href="../../../../index.html">Фильмы</a>
+					</li>
+					<li class="navigation__item">
+						<a class="navigation__link" href="./register.html"
+							>Вход / Регистрация</a
+						>
+					</li>
+				</ul>
+			</nav>
+		</header>
+
+		<main class="registration container">
+			<h1 class="registration__title">РЕГИСТРАЦИЯ</h1>
+
+			<form class="registration__form">
+				<div class="registration__field">
+					<label class="registration__label" for="login">Логин</label>
+					<input
+						id="login"
+						class="registration__input"
+						name="login"
+						type="text"
+						placeholder="Введите логин"
+						autocomplete="off"
+					/>
+					<span id="login-error" class="registration__error"></span>
+				</div>
+
+				<div class="registration__field">
+					<label class="registration__label" for="password">Пароль</label>
+					<input
+						id="password"
+						class="registration__input"
+						name="password"
+						type="password"
+						placeholder="Введите пароль"
+						autocomplete="off"
+					/>
+
+					<span id="password-error" class="registration__error"></span>
+				</div>
+
+				<div class="registration__field">
+					<label class="registration__label" for="password-confirm">
+						Повторите пароль
+					</label>
+					<input
+						id="password-confirm"
+						class="registration__input"
+						name="password-confirm"
+						type="password"
+						placeholder="Повторите пароль"
+						autocomplete="off"
+					/>
+					<span id="password-confirm-error" class="registration__error"></span>
+				</div>
+
+				<div class="registration__actions">
+					<button
+						class="registration__button registration__submit"
+						type="submit"
+					>
+						Зарегистрироваться
+					</button>
+
+					<button
+						class="registration__button registration__login"
+						type="button"
+					>
+						<a class="registration__login-link" href="./login.html">
+							Уже зарегистрированы?
+						</a>
+					</button>
+				</div>
+			</form>
+		</main>
+	</body>
+</html>

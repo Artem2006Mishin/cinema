@@ -1,18 +1,35 @@
-import { BASE_URL } from "../config/constants.js";
+import { BASE_URL, STORAGE } from "../config/constants.js";
 import { HttpError, NetworkError } from "../errors/ApiErrors.js";
 import { isRequired } from "../utils/checks.js";
 
 export class ApiService {
 	#baseUrl;
+	#storageService;
 
-	constructor(baseUrl = BASE_URL.DEVELOPMENT) {
+	constructor(storageService, baseUrl = BASE_URL.DEVELOPMENT) {
+		isRequired(storageService, "storageService", "ApiService");
+
 		this.#baseUrl = baseUrl;
+		this.#storageService = storageService;
 	}
 
 	async get(resource, id = "") {
 		isRequired(resource, "resource", "ApiService");
+
 		const url = this.#buildUrl(resource, id);
-		return this.#makeRequest(url);
+		const options = this.#buildOptions("GET");
+
+		return this.#makeRequest(url, options);
+	}
+
+	async post(payload, resource) {
+		isRequired(payload, "payload", "ApiService");
+		isRequired(resource, "resource", "ApiService");
+
+		const url = this.#buildUrl(resource);
+		const options = this.#buildOptions("POST", payload);
+
+		return this.#makeRequest(url, options);
 	}
 
 	async put(payload, resource, id = "") {
@@ -20,13 +37,7 @@ export class ApiService {
 		isRequired(resource, "resource", "ApiService");
 
 		const url = this.#buildUrl(resource, id);
-		const options = {
-			method: "PUT",
-			headers: {
-				"Content-Type": "application/json",
-			},
-			body: JSON.stringify(payload),
-		};
+		const options = this.#buildOptions("PUT", payload);
 
 		return this.#makeRequest(url, options);
 	}
@@ -35,7 +46,33 @@ export class ApiService {
 		return `${this.#baseUrl}/${resource}${id ? "/" + id : ""}`;
 	}
 
-	async #makeRequest(url, options = null) {
+	#buildOptions(method, payload = null) {
+		const options = {
+			method: method,
+			headers: this.#buildHeaders(),
+		};
+
+		if (payload !== null) {
+			options.body = JSON.stringify(payload);
+		}
+
+		return options;
+	}
+
+	#buildHeaders() {
+		const headers = {
+			"Content-Type": "application/json",
+		};
+
+		const accessToken = this.#storageService.get(STORAGE.ACCESS_TOKEN);
+		if (accessToken) {
+			headers.Authorization = `Bearer ${accessToken}`;
+		}
+
+		return headers;
+	}
+
+	async #makeRequest(url, options) {
 		let response;
 
 		try {

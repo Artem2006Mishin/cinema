@@ -1,65 +1,72 @@
-import { Dropdown } from "../components/Dropdown.js";
+import { Drum } from "../components/Drum.js";
 import { STORAGE } from "../config/constants.js";
 import { isFound, isFunction, isRequired } from "../utils/checks.js";
 
 export class MoviesController {
 	#movieService;
 	#storageService;
-	#movieDropdown;
-	#movieChangeHandler;
+	#moviePicker;
+	#onMovieChange;
 
 	constructor(movieService, storageService) {
 		this.#movieService = movieService;
 		this.#storageService = storageService;
-		this.#movieDropdown = new Dropdown();
-		this.#movieChangeHandler = null;
-	}
-
-	onMovieChange(callback) {
-		isFunction(callback, "MoviesController");
-		this.#movieChangeHandler = callback;
+		this.#moviePicker = new Drum();
 	}
 
 	async init() {
 		await this.#loadMovies();
-		this.#restoreSelectedOption();
+		this.#restoreChanges();
 
-		const optionId = this.#movieDropdown.getSelectedOptionId();
-		await this.#handleMovieChange(optionId);
-
-		this.#movieDropdown.onChange((id) => this.#handleMovieChange(id));
+		this.#moviePicker.onWheel((movieId) => this.#handleMovieChange(movieId));
 	}
 
-	#restoreSelectedOption() {
-		const optionId = this.#getOptionIdFromStorage();
-		this.#movieDropdown.selectOption(optionId);
+	onMovieChange(callback) {
+		isFunction(callback, "MoviesController");
+		this.#onMovieChange = callback;
 	}
 
-	#getOptionIdFromStorage() {
-		const optionId = this.#storageService.get(STORAGE.SELECTED_OPTION_ID);
-		isFound(optionId, "optionId", "MovieDropdown.restoreSelectedOption");
-		return optionId;
-	}
+	getActiveMovie() {
+		const movieId = this.#moviePicker.getActiveListItemId();
+		const ticketPrice = this.#moviePicker.getActiveListItemValue();
 
-	#setOptionIdToStorage(id) {
-		isRequired(id, "id", "MoviesController.handleMovieChange");
-		this.#storageService.set(STORAGE.SELECTED_OPTION_ID, id);
+		isFound(movieId, "movieId", "MovieDropdown.getActiveMovie");
+		isFound(ticketPrice, "ticketPrice", "MovieDropdown.getActiveMovie");
+
+		return { movieId, ticketPrice };
 	}
 
 	async #loadMovies() {
 		const movies = await this.#movieService.getMovies();
 		isFound(movies, "movies", "MoviesController.loadMovies");
-		this.#movieDropdown.render(movies);
+		this.#moviePicker.render(movies);
 	}
 
-	async #handleMovieChange(optionId) {
-		try {
-			this.#setOptionIdToStorage(optionId);
+	#restoreChanges() {
+		const movieId = this.#getMovieIdFromStorage();
+		this.#moviePicker.selectListItem(movieId);
+	}
 
-			const ticketPrice = this.#movieDropdown.getSelectedOptionValue();
+	#getMovieIdFromStorage() {
+		const movieId = this.#storageService.get(STORAGE.MOVIE_ID);
+		isFound(movieId, "movieId", "MovieDropdown.getMovieIdFromStorage");
+
+		return movieId;
+	}
+
+	#setMovieIdToStorage(movieId) {
+		isRequired(movieId, "movieId", "MoviesController.setMovieIdToStorage");
+		this.#storageService.set(STORAGE.MOVIE_ID, movieId);
+	}
+
+	async #handleMovieChange(movieId) {
+		try {
+			this.#setMovieIdToStorage(movieId);
+
+			const ticketPrice = this.#moviePicker.getActiveListItemValue();
 			isFound(ticketPrice, "ticketPrice", "MoviesController.handleMovieChange");
 
-			await this.#movieChangeHandler?.(ticketPrice, optionId);
+			await this.#onMovieChange?.(ticketPrice, movieId);
 		} catch (error) {
 			console.log(error.message);
 		}

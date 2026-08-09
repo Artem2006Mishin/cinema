@@ -2,23 +2,23 @@
   "movies": [
     {
       "id": "avengers-endgame",
-      "title": "Avengers: Endgame",
-      "price": 10
+      "title": "Мстители финал",
+      "price": 299
     },
     {
       "id": "joker",
-      "title": "Joker",
-      "price": 12
+      "title": "Джокер",
+      "price": 360
     },
     {
       "id": "toy-story",
-      "title": "Toy story 4",
-      "price": 8
+      "title": "История игрушек 4",
+      "price": 199
     },
     {
       "id": "lion-king",
-      "title": "The Lion King",
-      "price": 9
+      "title": "Король лев",
+      "price": 250
     }
   ],
   "cinema": [
@@ -298,7 +298,7 @@
               "id": "joker-1-0"
             },
             {
-              "status": "free",
+              "status": "occupied",
               "id": "joker-1-1"
             },
             {
@@ -871,5 +871,6 @@
       ]
     }
   ],
+  "users": [],
   "$schema": "./node_modules/json-server/schema.json"
 }

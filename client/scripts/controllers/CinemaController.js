@@ -7,36 +7,50 @@ export class CinemaController {
 	#storageService;
 	#cinemaHall;
 	#cinemaData;
-	#seatSelectHandler;
+	#onSeatSelect;
 
 	constructor(cinemaService, storageService) {
 		this.#cinemaService = cinemaService;
 		this.#storageService = storageService;
 		this.#cinemaHall = new CinemaHall();
-		this.#seatSelectHandler = null;
+	}
+
+	async init(movieId) {
+		isRequired(movieId, "movieId", "CinemaController");
+
+		await this.#loadCinema(movieId);
+		this.#restoreSelectedSeats();
+
+		this.#cinemaHall.onSelect((seatsMap) => this.#handleSeatSelect(seatsMap));
 	}
 
 	onSeatSelect(callback) {
 		isFunction(callback, "CinemaController");
-		this.#seatSelectHandler = callback;
+		this.#onSeatSelect = callback;
 	}
 
-	async init() {
-		this.#restoreSelectedSeats();
-		this.#cinemaHall.onSelect((seatsMap) => this.#handleSeatSelect(seatsMap));
+	getSelectedSeatsCount() {
+		const selectedSeat = this.#cinemaHall.getSelectedSeatIds();
+		isFound(
+			selectedSeat,
+			"selectedSeat",
+			"CinemaController.getSelectedSeatsCount",
+		);
+
+		return selectedSeat.length;
 	}
 
-	async respondToMovieChange(optionId) {
-		isRequired(optionId, "optionId", "CinemaController.respondToMovieChange");
+	async respondToMovieChange(movieId) {
+		isRequired(movieId, "movieId", "CinemaController.respondToMovieChange");
+
+		await this.#loadCinema(movieId);
 
 		this.#storageService.set(STORAGE.SELECTED_SEAT_IDS, []);
-		this.#seatSelectHandler(0);
-
-		await this.#loadCinema(optionId);
+		this.#onSeatSelect(0);
 	}
 
 	async respondToSeatsReserve() {
-		this.#setOccupiedStatusForSelectedSeats();
+		this.#setOccupiedStatus();
 
 		this.#cinemaData = await this.#cinemaService.saveCinemaData(
 			this.#cinemaData,
@@ -46,21 +60,12 @@ export class CinemaController {
 		this.#cinemaHall.render(this.#cinemaData.hall);
 
 		this.#storageService.set(STORAGE.SELECTED_SEAT_IDS, []);
-		this.#seatSelectHandler(0);
+		this.#onSeatSelect(0);
 	}
 
-	#setOccupiedStatusForSelectedSeats() {
-		const seatIds = this.#storageService.get(STORAGE.SELECTED_SEAT_IDS);
-		isFound(
-			seatIds,
-			"seatIds",
-			"CinemaController.setOccupiedStatusForSelectedSeats",
-		);
-		const allSeats = this.#cinemaData.hall.flatMap((group) => group.seats);
-		seatIds.forEach((id) => {
-			const selectedSeat = allSeats.find((seat) => seat.id === id);
-			selectedSeat.status = SEAT_STATUS.OCCUPIED;
-		});
+	async #loadCinema(movieId) {
+		this.#cinemaData = await this.#cinemaService.getCinemaData(movieId);
+		this.#cinemaHall.render(this.#cinemaData.hall);
 	}
 
 	#restoreSelectedSeats() {
@@ -68,7 +73,17 @@ export class CinemaController {
 		isFound(seatIds, "seatIds", "CinemaController.restoreSelectedSeats");
 
 		this.#cinemaHall.selectSeats(seatIds);
-		this.#seatSelectHandler(seatIds.length);
+	}
+
+	#setOccupiedStatus() {
+		const seatIds = this.#storageService.get(STORAGE.SELECTED_SEAT_IDS);
+		isFound(seatIds, "seatIds", "CinemaController.setOccupiedStatus");
+
+		const allSeats = this.#cinemaData.hall.flatMap((group) => group.seats);
+		seatIds.forEach((id) => {
+			const selectedSeat = allSeats.find((seat) => seat.id === id);
+			selectedSeat.status = SEAT_STATUS.OCCUPIED;
+		});
 	}
 
 	#handleSeatSelect(seatsMap = new Map()) {
@@ -80,13 +95,6 @@ export class CinemaController {
 		}
 
 		this.#storageService.set(STORAGE.SELECTED_SEAT_IDS, seatIds);
-		this.#seatSelectHandler(seatIds.length);
-	}
-
-	async #loadCinema(optionId) {
-		isRequired(optionId, "optionId", "CinemaController.loadCinema");
-
-		this.#cinemaData = await this.#cinemaService.getCinemaData(optionId);
-		this.#cinemaHall.render(this.#cinemaData.hall);
+		this.#onSeatSelect(seatIds.length);
 	}
 }

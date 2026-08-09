@@ -1,0 +1,16 @@
+.navigation__list {
+	display: flex;
+	align-items: center;
+	gap: 30px;
+	height: 100%;
+}
+
+.navigation__link {
+	font-size: 20px;
+	color: var(--text-clr);
+	transition: color 0.4s ease;
+}
+
+.navigation__link:hover {
+	color: var(--orange-clr);
+}

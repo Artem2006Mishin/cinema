@@ -6,11 +6,14 @@ export const BASE_URL = {
 export const RESOURCE_URL = {
 	MOVIES: "movies",
 	CINEMA: "cinema",
+	REGISTER: "register",
+	LOGIN: "login",
 };
 
 export const STORAGE = {
-	SELECTED_OPTION_ID: "selectedOptionId",
+	MOVIE_ID: "movieId",
 	SELECTED_SEAT_IDS: "selectedSeatIds",
+	ACCESS_TOKEN: "accessToken",
 };
 
 export const SEAT_STATUS = {

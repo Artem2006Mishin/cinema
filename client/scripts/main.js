@@ -9,22 +9,26 @@ import { STORAGE } from "./config/constants.js";
 import { HttpError, NetworkError } from "./errors/ApiErrors.js";
 import { ErrorNotification } from "./components/ErrorNotification.js";
 
-const apiService = new ApiService();
-const movieService = new MovieService(apiService);
-const cinemaService = new CinemaService(apiService);
-const storageService = new StorageService();
 let errorNotification;
 
 try {
 	errorNotification = new ErrorNotification();
 	errorNotification.hideError();
 
+	const storageService = new StorageService();
+	storageService.init(STORAGE.MOVIE_ID, "avengers-endgame");
+	storageService.init(STORAGE.SELECTED_SEAT_IDS, []);
+
+	const apiService = new ApiService(storageService);
+	const movieService = new MovieService(apiService);
+	const cinemaService = new CinemaService(apiService);
+
 	const moviesController = new MoviesController(movieService, storageService);
 	const cinemaController = new CinemaController(cinemaService, storageService);
 	const reservationController = new ReservationController();
 
-	moviesController.onMovieChange(async (ticketPrice, optionId) => {
-		await cinemaController.respondToMovieChange(optionId);
+	moviesController.onMovieChange(async (ticketPrice, movieId) => {
+		await cinemaController.respondToMovieChange(movieId);
 		reservationController.ticketPrice = ticketPrice;
 	});
 
@@ -36,13 +40,13 @@ try {
 		cinemaController.respondToSeatsReserve();
 	});
 
-	// нужно ли раскидать эту логику по компонентам
-	storageService.init(STORAGE.SELECTED_OPTION_ID, "avengers-endgame");
-	storageService.init(STORAGE.SELECTED_SEAT_IDS, []);
-
 	await moviesController.init();
-	await cinemaController.init();
-	reservationController.init();
+	const { movieId, ticketPrice } = moviesController.getActiveMovie();
+
+	await cinemaController.init(movieId);
+	const selectedSeatsCount = cinemaController.getSelectedSeatsCount();
+
+	reservationController.init(ticketPrice, selectedSeatsCount);
 } catch (error) {
 	if (error instanceof NetworkError) {
 		errorNotification.showError("Check your internet connection");
