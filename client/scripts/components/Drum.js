@@ -1,6 +1,6 @@
 import { isFound, isRequired, isFunction } from "../utils/checks.js";
+import { SCROLL_THRESHOLD } from "../config/constants.js";
 
-// провести рефакторинг
 export class Drum {
 	#rootEl;
 	#listEl;
@@ -8,6 +8,7 @@ export class Drum {
 	#itemHeight;
 	#selectedIndex;
 	#isAnimating;
+	#scroll;
 	#onWheel;
 
 	constructor(selector = "#movie-drum") {
@@ -21,6 +22,7 @@ export class Drum {
 		this.#itemHeight = this.#readListItemHeight();
 		this.#selectedIndex = 0;
 		this.#isAnimating = false;
+		this.#scroll = 0;
 		this.#onWheel = null;
 
 		this.#setListPosition();
@@ -127,14 +129,29 @@ export class Drum {
 		);
 	}
 
+	#accumulateScroll(event) {
+		this.#scroll += event.deltaY;
+
+		if (Math.abs(this.#scroll) < SCROLL_THRESHOLD) {
+			this.#scroll = 0;
+			return false;
+		}
+
+		this.#scroll = 0;
+		return true;
+	}
+
 	#handleWheel(event) {
 		event.preventDefault();
+
+		const isAccumulated = this.#accumulateScroll(event);
+		if (!isAccumulated) return;
 
 		if (this.#isAnimating) return;
 		this.#lockDuringAnimation();
 
-		const changed = this.#changeSelectIndex(event);
-		if (!changed) return;
+		const isChanged = this.#changeSelectIndex(event);
+		if (!isChanged) return;
 
 		this.#setListPosition();
 		this.#itemEls.forEach((itemEl, index) => {

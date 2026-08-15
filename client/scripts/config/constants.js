@@ -23,3 +23,4 @@ export const SEAT_STATUS = {
 };
 
 export const ERROR_NOTIFICATION_VISIBLE = "error-notification--visible";
+export const SCROLL_THRESHOLD = 40;
