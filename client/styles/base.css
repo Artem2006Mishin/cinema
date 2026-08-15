@@ -30,6 +30,9 @@ body {
 	font-size: 18px;
 	color: var(--white-clr);
 	background-color: var(--background-clr);
+
+	opacity: 1;
+	transition: 400ms ease opacity;
 }
 
 ul {
@@ -48,4 +51,8 @@ input {
 	max-width: 1200px;
 	margin: 0 auto;
 	padding: 40px 20px;
+}
+
+.load {
+	opacity: 0;
 }

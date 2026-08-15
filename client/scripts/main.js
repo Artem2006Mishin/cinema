@@ -8,12 +8,15 @@ import { ReservationController } from "./controllers/ReservationController.js";
 import { STORAGE } from "./config/constants.js";
 import { HttpError, NetworkError } from "./errors/ApiErrors.js";
 import { ErrorNotification } from "./components/ErrorNotification.js";
+import { PageTransition } from "./components/PageTransition.js";
 
 let errorNotification;
 
 try {
 	errorNotification = new ErrorNotification();
 	errorNotification.hideError();
+
+	const pageTransition = new PageTransition();
 
 	const storageService = new StorageService();
 	storageService.init(STORAGE.MOVIE_ID, "avengers-endgame");
