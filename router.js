@@ -77,24 +77,24 @@ export default function createRouter() {
 	}
 
 	router
-		.on("/cinema", () => {
+		.on("/", () => {
 			return mount({
 				PageClass: HomePage,
 			});
 		})
-		.on("/cinema/login", () => {
+		.on("/login", () => {
 			return mount({
 				PageClass: AuthPage,
 				authMode: "login",
 			});
 		})
-		.on("/cinema/register", () => {
+		.on("/register", () => {
 			return mount({
 				PageClass: AuthPage,
 				authMode: "register",
 			});
 		})
-		.on("/cinema/profile", () => {
+		.on("/profile", () => {
 			return mount({
 				PageClass: ProfilePage,
 			});
