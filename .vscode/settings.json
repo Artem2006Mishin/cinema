@@ -1,0 +1,9 @@
+{
+	"cSpell.words": ["РЕНДЕРА"],
+	"liveServer.settings.ignoreFiles": [
+		".vscode/**",
+		"**/node_modules/**",
+		"server/db.json"
+	],
+	"editor.fontFamily": "JetBrains Mono ExtraLight"
+}
