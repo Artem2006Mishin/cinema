@@ -15,7 +15,7 @@ import {
 const PUBLIC_ROUTES = ["login", "register"];
 
 export default function createRouter() {
-	const router = new Navigo("/");
+	const router = new Navigo("/cinema");
 	const container = document.querySelector("[data-js='page-main']");
 	let currentPage = null;
 
@@ -77,24 +77,24 @@ export default function createRouter() {
 	}
 
 	router
-		.on("/", () => {
+		.on("/cinema", () => {
 			return mount({
 				PageClass: HomePage,
 			});
 		})
-		.on("/login", () => {
+		.on("/cinema/login", () => {
 			return mount({
 				PageClass: AuthPage,
 				authMode: "login",
 			});
 		})
-		.on("/register", () => {
+		.on("/cinema/register", () => {
 			return mount({
 				PageClass: AuthPage,
 				authMode: "register",
 			});
 		})
-		.on("/profile", () => {
+		.on("/cinema/profile", () => {
 			return mount({
 				PageClass: ProfilePage,
 			});
