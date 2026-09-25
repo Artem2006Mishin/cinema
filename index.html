@@ -1,80 +1,15 @@
 <!doctype html>
-<html lang="en">
+<html lang="ru">
 	<head>
 		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<title>Movie seats booking</title>
-		<link rel="stylesheet" href="client/styles/main.css" />
-		<script type="module" src="client/scripts/main.js"></script>
+		<title>Cinema</title>
+		<link rel="stylesheet" href="main.css" />
 	</head>
-	<body class="load">
-		<header class="header container">
-			<h2 class="header__title">My Cinema</h2>
+	<body>
+		<div class="page" data-js="page">
+			<main class="page__main" data-js="page-main"></main>
+		</div>
 
-			<nav class="header__navigation navigation">
-				<ul class="navigation__list">
-					<li class="navigation__item">
-						<a class="navigation__link" href="./index.html">Фильмы</a>
-					</li>
-					<li class="navigation__item">
-						<a
-							class="navigation__link"
-							href="./client/scripts/pages/register/register.html"
-							>Вход / Регистрация</a
-						>
-					</li>
-				</ul>
-			</nav>
-		</header>
-
-		<main class="reservation container">
-			<div class="reservation__movie-switcher">
-				<h1 class="reservation__label">ФИЛЬМЫ</h1>
-				<div id="movie-drum" class="drum">
-					<ul class="drum__list"></ul>
-				</div>
-			</div>
-
-			<div class="reservation__main">
-				<ul class="reservation__legend">
-					<li class="reservation__legend-item">
-						<div class="seat"></div>
-						<span class="reservation__legend-text">Свободно</span>
-					</li>
-					<li class="reservation__legend-item">
-						<div class="seat seat--selected"></div>
-						<span class="reservation__legend-text">Выбрано</span>
-					</li>
-					<li class="reservation__legend-item">
-						<div class="seat seat--occupied"></div>
-						<span class="reservation__legend-text">Занято</span>
-					</li>
-				</ul>
-
-				<div class="cinema">
-					<div class="cinema__screen"></div>
-					<div class="cinema__hall"></div>
-				</div>
-
-				<p class="reservation__receipt">
-					Ты выбрал
-					<span id="selected-seat-count" class="reservation__receipt-span"
-						>0</span
-					>
-					сидений, итоговая стоимость
-					<span id="total-price" class="reservation__receipt-span">0</span>₽
-				</p>
-
-				<button
-					class="reservation__button reservation__button--inactive"
-					type="button"
-					disabled
-				>
-					Забронировать
-				</button>
-			</div>
-		</main>
-
-		<div id="error-notification" class="error-notification"></div>
+		<script type="module" src="main.js"></script>
 	</body>
 </html>

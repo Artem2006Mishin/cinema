@@ -1,28 +1,15 @@
-import { isFound } from "../utils/checks.js";
-
-export class ReservationController {
+export default class ReservationController {
 	#reserveBtnEl;
 	#totalPriceEl;
 	#selectedSeatsCountEl;
 	#ticketPrice;
 	#onSeatsReserve;
 
-	constructor() {
-		this.#reserveBtnEl = document.querySelector(".reservation__button");
-		isFound(
-			this.#reserveBtnEl,
-			".reservation__button",
-			"ReservationController",
-		);
-
-		this.#totalPriceEl = document.querySelector("#total-price");
-		isFound(this.#totalPriceEl, "#total-price", "ReservationController");
-
-		this.#selectedSeatsCountEl = document.querySelector("#selected-seat-count");
-		isFound(
-			this.#selectedSeatsCountEl,
+	constructor({ container }) {
+		this.#reserveBtnEl = container.querySelector(".reservation__button");
+		this.#totalPriceEl = container.querySelector("#total-price");
+		this.#selectedSeatsCountEl = container.querySelector(
 			"#selected-seat-count",
-			"ReservationController",
 		);
 	}
 
@@ -34,8 +21,8 @@ export class ReservationController {
 		this.#ticketPrice = ticketPrice;
 		this.respondToSeatsSelect(selectedSeatsCount);
 
-		this.#reserveBtnEl.addEventListener("click", (event) => {
-			this.#handleReserveBtnClick(event);
+		this.#reserveBtnEl.addEventListener("click", async (event) => {
+			await this.#handleReserveBtnClick(event);
 		});
 	}
 

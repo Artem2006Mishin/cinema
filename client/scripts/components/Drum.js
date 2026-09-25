@@ -1,132 +1,134 @@
-import { isFound, isRequired, isFunction } from "../utils/checks.js";
-import { SCROLL_THRESHOLD } from "../config/constants.js";
+import invariant from "tiny-invariant";
 
-export class Drum {
-	#rootEl;
-	#listEl;
-	#itemEls;
-	#itemHeight;
-	#selectedIndex;
-	#isAnimating;
-	#scroll;
-	#onWheel;
+const SCROLL_THRESHOLD = 40;
 
-	constructor(selector = "#movie-drum") {
-		this.#rootEl = document.querySelector(selector);
-		isFound(this.#rootEl, selector, "Drum");
+export default class Drum {
+	#drumElement;
+	#drumListElement;
+	#drumItemElements = [];
 
-		this.#listEl = this.#rootEl.querySelector(".drum__list");
-		isFound(this.#listEl, ".drum__list", "Drum");
+	#drumItemHeight = 48;
+	#selectedDrumItemIndex = 0;
 
-		this.#itemEls = [];
-		this.#itemHeight = this.#readListItemHeight();
-		this.#selectedIndex = 0;
-		this.#isAnimating = false;
-		this.#scroll = 0;
-		this.#onWheel = null;
+	#isAnimating = false;
+	#scroll = 0;
+	#onWheel = null;
 
-		this.#setListPosition();
+	constructor({ container, selector }) {
+		invariant(container, "Drum: container is not found");
+		invariant(selector, "Drum: selector is not found");
 
-		this.#rootEl.addEventListener("wheel", (event) => {
-			this.#handleWheel(event);
+		this.#drumElement = container.querySelector(selector);
+		this.#drumListElement = container.querySelector("[data-js='drum-list']");
+
+		invariant(this.#drumElement, "Drum: drumElement is not found");
+		invariant(this.#drumListElement, "Drum: drumListElement is not found");
+	}
+
+	init() {
+		this.#drumElement.addEventListener("wheel", async (event) => {
+			await this.#handleWheel(event);
+		});
+
+		this.#drumElement.addEventListener("click", async (event) => {
+			await this.#handleClick(event);
 		});
 	}
 
 	onWheel(callback) {
-		isFunction(callback, "Drum.onWheel");
+		invariant(callback, "Drum: callback is not found");
 		this.#onWheel = callback;
 	}
 
-	getActiveListItemValue() {
-		const itemEl = this.#itemEls[this.#selectedIndex];
-		return Number(itemEl.dataset.value);
-	}
+	render({ drumItemsData }) {
+		invariant(drumItemsData, "Drum: drumItemsData is not found");
 
-	getActiveListItemId() {
-		return this.#itemEls[this.#selectedIndex].id;
-	}
+		drumItemsData.forEach((data, index) => {
+			const drumItem = this.#createDrumItem(data);
 
-	render(movies) {
-		isRequired(movies, "movies", "Drum.render");
+			this.#updateDrumItemState({
+				drumItem: drumItem,
+				drumItemIndex: index,
+			});
 
-		movies.forEach((movie, index) => {
-			const itemEl = this.#createListItem(movie);
-			this.#makeListItemActive(itemEl, index);
-			this.#itemEls.push(itemEl);
-			this.#listEl.append(itemEl);
+			this.#drumItemElements.push(drumItem);
+			this.#drumListElement.append(drumItem);
 		});
 	}
 
-	selectListItem(id) {
-		isRequired(id, "id", "Drum.selectListItem");
+	getDrumValue() {
+		const drumItem = this.#drumItemElements[this.#selectedDrumItemIndex];
 
-		const itemIndex = this.#searchListItemIndexById(id);
-		this.#selectedIndex = itemIndex;
-
-		this.#setListPosition();
-		this.#itemEls.forEach((itemEl, index) => {
-			this.#makeListItemActive(itemEl, index);
-		});
+		return {
+			id: drumItem.dataset.js,
+			value: Number(drumItem.dataset.value),
+		};
 	}
 
-	#readListItemHeight() {
-		const styles = getComputedStyle(this.#rootEl);
-		const raw = styles.getPropertyValue("--item-height");
-		isFound(raw, "--item-height", "Drum.readItemHeight");
-		return parseFloat(raw);
+	setDrumValue({ drumItemId }) {
+		invariant(drumItemId, "Drum: drumItemId is not found");
+
+		const drumItemIndex = this.#drumItemElements.findIndex(
+			(item) => item.dataset.js === drumItemId,
+		);
+		this.#selectedDrumItemIndex = drumItemIndex;
+
+		this.#updateDrumState();
 	}
 
-	#setListPosition() {
-		const offset = this.#calculateOffset();
-		this.#listEl.style.transform = `translateY(${offset}px)`;
+	#setDrumListPosition() {
+		const offset = -(this.#selectedDrumItemIndex - 1) * this.#drumItemHeight;
+		this.#drumListElement.style.transform = `translateY(${offset}px)`;
 	}
 
-	#calculateOffset() {
-		return -(this.#selectedIndex - 1) * this.#itemHeight;
-	}
-
-	#createListItem(movie) {
+	#createDrumItem(data) {
 		const item = document.createElement("li");
+
 		item.classList.add("drum__item");
-		item.id = movie.id;
-		item.dataset.value = movie.price;
-		item.textContent = movie.title;
+
+		item.dataset.js = data.id;
+		item.dataset.value = data.price;
+
+		item.textContent = data.title;
+
 		return item;
 	}
 
-	#searchListItemIndexById(id) {
-		return this.#itemEls.findIndex((itemEl) => itemEl.id === id);
+	#updateDrumState() {
+		this.#setDrumListPosition();
+
+		this.#drumItemElements.forEach((item, index) => {
+			this.#updateDrumItemState({ drumItem: item, drumItemIndex: index });
+		});
 	}
 
-	#makeListItemActive(itemEl, itemIndex) {
-		const distance = Math.abs(itemIndex - this.#selectedIndex);
-		itemEl.classList.toggle("drum__item--active", distance === 0);
-		itemEl.classList.toggle("drum__item--hidden", distance > 1);
+	#updateDrumItemState({ drumItem, drumItemIndex }) {
+		const distance = Math.abs(drumItemIndex - this.#selectedDrumItemIndex);
+
+		drumItem.classList.toggle("drum__item--active", distance === 0);
+		drumItem.classList.toggle("drum__item--hidden", distance > 1);
 	}
 
 	#lockDuringAnimation() {
 		this.#isAnimating = true;
+
 		setTimeout(() => {
 			this.#isAnimating = false;
 		}, 300);
 	}
 
-	#changeSelectIndex(event) {
+	#updateSelectedDrumItemIndex(event) {
 		const direction = event.deltaY > 0 ? 1 : -1;
 
-		if (!this.#isValidSelectedIndex(direction)) {
-			return false;
+		if (
+			this.#selectedDrumItemIndex + direction >= 0 &&
+			this.#selectedDrumItemIndex + direction < this.#drumItemElements.length
+		) {
+			this.#selectedDrumItemIndex += direction;
+			return true;
 		}
 
-		this.#selectedIndex += direction;
-		return true;
-	}
-
-	#isValidSelectedIndex(direction) {
-		return (
-			this.#selectedIndex + direction >= 0 &&
-			this.#selectedIndex + direction < this.#itemEls.length
-		);
+		return false;
 	}
 
 	#accumulateScroll(event) {
@@ -141,7 +143,7 @@ export class Drum {
 		return true;
 	}
 
-	#handleWheel(event) {
+	async #handleWheel(event) {
 		event.preventDefault();
 
 		const isAccumulated = this.#accumulateScroll(event);
@@ -150,15 +152,22 @@ export class Drum {
 		if (this.#isAnimating) return;
 		this.#lockDuringAnimation();
 
-		const isChanged = this.#changeSelectIndex(event);
+		const isChanged = this.#updateSelectedDrumItemIndex(event);
 		if (!isChanged) return;
 
-		this.#setListPosition();
-		this.#itemEls.forEach((itemEl, index) => {
-			this.#makeListItemActive(itemEl, index);
-		});
+		this.#updateDrumState();
 
-		const itemId = this.getActiveListItemId();
-		this.#onWheel?.(itemId);
+		const { id } = this.getDrumValue();
+		await this.#onWheel?.(id);
+	}
+
+	async #handleClick(event) {
+		event.preventDefault();
+
+		const li = event.target.closest("li");
+		this.setDrumValue({ drumItemId: li.dataset.js });
+
+		const { id } = this.getDrumValue();
+		await this.#onWheel?.(id);
 	}
 }

@@ -1,74 +1,79 @@
-import { Drum } from "../components/Drum.js";
-import { STORAGE } from "../config/constants.js";
-import { isFound, isFunction, isRequired } from "../utils/checks.js";
+import invariant from "tiny-invariant";
+import Drum from "@components/Drum.js";
+import { STORAGE } from "@config/constants.js";
 
-export class MoviesController {
+export default class MoviesController {
 	#movieService;
 	#storageService;
 	#moviePicker;
 	#onMovieChange;
 
-	constructor(movieService, storageService) {
+	constructor({ container, movieService, storageService }) {
+		invariant(container, "MoviesController: container is not found");
+		invariant(movieService, "MoviesController: movieService is not found");
+		invariant(storageService, "MoviesController: storageService is not found");
+
 		this.#movieService = movieService;
 		this.#storageService = storageService;
-		this.#moviePicker = new Drum();
+
+		this.#moviePicker = new Drum({
+			container: container,
+			selector: "[data-js='drum']",
+		});
 	}
 
 	async init() {
 		await this.#loadMovies();
+
+		this.#moviePicker.init();
+
 		this.#restoreChanges();
 
-		this.#moviePicker.onWheel((movieId) => this.#handleMovieChange(movieId));
+		this.#moviePicker.onWheel(async (movieId) => {
+			await this.#handleMovieChange(movieId);
+		});
 	}
 
 	onMovieChange(callback) {
-		isFunction(callback, "MoviesController");
+		invariant(callback, "MoviesController: callback is not found");
 		this.#onMovieChange = callback;
 	}
 
-	getActiveMovie() {
-		const movieId = this.#moviePicker.getActiveListItemId();
-		const ticketPrice = this.#moviePicker.getActiveListItemValue();
+	getSelectedMovie() {
+		const { id: movieId, value: moviePrice } = this.#moviePicker.getDrumValue();
 
-		isFound(movieId, "movieId", "MovieDropdown.getActiveMovie");
-		isFound(ticketPrice, "ticketPrice", "MovieDropdown.getActiveMovie");
+		invariant(movieId, "MoviesController: movieId is not found");
+		invariant(moviePrice, "MoviesController: moviePrice is not found");
 
-		return { movieId, ticketPrice };
+		return { movieId, moviePrice };
 	}
 
 	async #loadMovies() {
-		const movies = await this.#movieService.getMovies();
-		isFound(movies, "movies", "MoviesController.loadMovies");
-		this.#moviePicker.render(movies);
+		const token = this.#storageService.get(STORAGE.ACCESS_TOKEN);
+		const movies = await this.#movieService.getMovies({ token: token });
+		invariant(movies, "MoviesController: movies is not found");
+
+		this.#moviePicker.render({ drumItemsData: movies });
 	}
 
 	#restoreChanges() {
-		const movieId = this.#getMovieIdFromStorage();
-		this.#moviePicker.selectListItem(movieId);
-	}
-
-	#getMovieIdFromStorage() {
 		const movieId = this.#storageService.get(STORAGE.MOVIE_ID);
-		isFound(movieId, "movieId", "MovieDropdown.getMovieIdFromStorage");
-
-		return movieId;
-	}
-
-	#setMovieIdToStorage(movieId) {
-		isRequired(movieId, "movieId", "MoviesController.setMovieIdToStorage");
-		this.#storageService.set(STORAGE.MOVIE_ID, movieId);
+		this.#moviePicker.setDrumValue({ drumItemId: movieId });
 	}
 
 	async #handleMovieChange(movieId) {
 		try {
-			this.#setMovieIdToStorage(movieId);
+			this.#storageService.set(STORAGE.MOVIE_ID, movieId);
 
-			const ticketPrice = this.#moviePicker.getActiveListItemValue();
-			isFound(ticketPrice, "ticketPrice", "MoviesController.handleMovieChange");
+			const { value: moviePrice } = this.#moviePicker.getDrumValue();
+			invariant(moviePrice, "MoviesController: moviePrice is not found");
 
-			await this.#onMovieChange?.(ticketPrice, movieId);
+			await this.#onMovieChange?.({
+				movieId,
+				moviePrice,
+			});
 		} catch (error) {
-			console.log(error.message);
+			console.error(error.message);
 		}
 	}
 }

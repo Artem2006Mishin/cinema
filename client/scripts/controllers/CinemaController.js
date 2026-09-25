@@ -1,48 +1,46 @@
+import invariant from "tiny-invariant";
 import { CinemaHall } from "../components/CinemaHall.js";
 import { STORAGE, SEAT_STATUS } from "../config/constants.js";
-import { isFound, isFunction, isRequired } from "../utils/checks.js";
 
-export class CinemaController {
+export default class CinemaController {
 	#cinemaService;
 	#storageService;
 	#cinemaHall;
 	#cinemaData;
 	#onSeatSelect;
 
-	constructor(cinemaService, storageService) {
+	constructor({ container, cinemaService, storageService }) {
+		invariant(container, "CinemaController: container is not found");
+		invariant(cinemaService, "CinemaController: movieService is not found");
+		invariant(storageService, "CinemaController: storageService is not found");
+
 		this.#cinemaService = cinemaService;
 		this.#storageService = storageService;
-		this.#cinemaHall = new CinemaHall();
+
+		this.#cinemaHall = new CinemaHall({
+			container: container,
+			selector: ".cinema__hall",
+		});
 	}
 
 	async init(movieId) {
-		isRequired(movieId, "movieId", "CinemaController");
-
 		await this.#loadCinema(movieId);
+
 		this.#restoreSelectedSeats();
 
 		this.#cinemaHall.onSelect((seatsMap) => this.#handleSeatSelect(seatsMap));
 	}
 
 	onSeatSelect(callback) {
-		isFunction(callback, "CinemaController");
 		this.#onSeatSelect = callback;
 	}
 
 	getSelectedSeatsCount() {
 		const selectedSeat = this.#cinemaHall.getSelectedSeatIds();
-		isFound(
-			selectedSeat,
-			"selectedSeat",
-			"CinemaController.getSelectedSeatsCount",
-		);
-
 		return selectedSeat.length;
 	}
 
 	async respondToMovieChange(movieId) {
-		isRequired(movieId, "movieId", "CinemaController.respondToMovieChange");
-
 		await this.#loadCinema(movieId);
 
 		this.#storageService.set(STORAGE.SELECTED_SEAT_IDS, []);
@@ -52,10 +50,13 @@ export class CinemaController {
 	async respondToSeatsReserve() {
 		this.#setOccupiedStatus();
 
-		this.#cinemaData = await this.#cinemaService.saveCinemaData(
-			this.#cinemaData,
-			this.#cinemaData.id,
-		);
+		const token = this.#storageService.get(STORAGE.ACCESS_TOKEN);
+
+		this.#cinemaData = await this.#cinemaService.saveCinemaData({
+			token: token,
+			payload: this.#cinemaData,
+			movieId: this.#cinemaData.id,
+		});
 
 		this.#cinemaHall.render(this.#cinemaData.hall);
 
@@ -64,21 +65,23 @@ export class CinemaController {
 	}
 
 	async #loadCinema(movieId) {
-		this.#cinemaData = await this.#cinemaService.getCinemaData(movieId);
+		const token = this.#storageService.get(STORAGE.ACCESS_TOKEN);
+
+		this.#cinemaData = await this.#cinemaService.getCinemaData({
+			token: token,
+			movieId: movieId,
+		});
+
 		this.#cinemaHall.render(this.#cinemaData.hall);
 	}
 
 	#restoreSelectedSeats() {
 		const seatIds = this.#storageService.get(STORAGE.SELECTED_SEAT_IDS);
-		isFound(seatIds, "seatIds", "CinemaController.restoreSelectedSeats");
-
 		this.#cinemaHall.selectSeats(seatIds);
 	}
 
 	#setOccupiedStatus() {
 		const seatIds = this.#storageService.get(STORAGE.SELECTED_SEAT_IDS);
-		isFound(seatIds, "seatIds", "CinemaController.setOccupiedStatus");
-
 		const allSeats = this.#cinemaData.hall.flatMap((group) => group.seats);
 		seatIds.forEach((id) => {
 			const selectedSeat = allSeats.find((seat) => seat.id === id);

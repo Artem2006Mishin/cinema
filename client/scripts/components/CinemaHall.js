@@ -1,4 +1,3 @@
-import { isFound, isFunction, isRequired } from "../utils/checks.js";
 import { CinemaSeat } from "./CinemaSeat.js";
 
 export class CinemaHall {
@@ -6,9 +5,8 @@ export class CinemaHall {
 	#cinemaSeatsMap;
 	#onSelect;
 
-	constructor(selector = ".cinema__hall") {
-		this.#cinemaHallEl = document.querySelector(selector);
-		isFound(this.#cinemaHallEl, selector, "CinemaHall");
+	constructor({ container, selector }) {
+		this.#cinemaHallEl = container.querySelector(selector);
 
 		this.#cinemaSeatsMap = new Map();
 		this.#onSelect = null;
@@ -19,7 +17,6 @@ export class CinemaHall {
 	}
 
 	onSelect(callback) {
-		isFunction(callback, "CinemaHall");
 		this.#onSelect = callback;
 	}
 
@@ -34,8 +31,6 @@ export class CinemaHall {
 	}
 
 	render(cinemaHallData) {
-		isRequired(cinemaHallData, "cinemaHallData", "CinemaHall.render");
-
 		this.#cinemaHallEl.innerHTML = "";
 		this.#cinemaSeatsMap.clear();
 
@@ -46,8 +41,6 @@ export class CinemaHall {
 	}
 
 	selectSeats(seatIds) {
-		isRequired(seatIds, "seatIds", "CinemaHall.selectSeats");
-
 		seatIds.forEach((id) => {
 			const cinemaSeat = this.#cinemaSeatsMap.get(id);
 			cinemaSeat?.toggleSelected();

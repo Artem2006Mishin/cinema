@@ -12,10 +12,3 @@ export class HttpError extends Error {
 		this.status = status;
 	}
 }
-
-export class UnauthorizedError extends Error {
-	constructor(message = "Invalid email or password") {
-		super(message);
-		this.name = "UnauthorizedError";
-	}
-}

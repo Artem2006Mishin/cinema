@@ -1,0 +1,19 @@
+@import url("./client/styles/base.css");
+
+/* компоненты */
+@import url("./client/styles/components/ui/drum.css");
+@import url("./client/styles/components/ui/field.css");
+@import url("./client/styles/components/ui/file.css");
+
+@import url("./client/styles/components/layouts/page.css");
+@import url("./client/styles/components/layouts/sidebar.css");
+
+@import url("./client/styles/components/domain/cinema.css");
+@import url("./client/styles/components/domain/seat.css");
+
+@import url("./client/styles/states.css");
+
+/* страницы */
+@import url("./client/scripts/pages/auth/auth.css");
+@import url("./client/scripts/pages/home/home.css");
+@import url("./client/scripts/pages/profile/profile.css");

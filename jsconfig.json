@@ -1,0 +1,16 @@
+{
+	"compilerOptions": {
+		"paths": {
+			"@/*": ["./*"],
+			"@pages/*": ["./client/scripts/pages/*"],
+			"@services/*": ["./client/scripts/services/*"],
+			"@config/*": ["./client/scripts/config/*"],
+			"@utils/*": ["./client/scripts/utils/*"],
+			"@errors/*": ["./client/scripts/errors/*"],
+			"@components/*": ["./client/scripts/components/*"],
+			"@controllers/*": ["./client/scripts/controllers/*"],
+			"@layouts/*": ["./client/scripts/layouts/*"]
+		}
+	},
+	"exclude": ["node_modules", "dist"]
+}

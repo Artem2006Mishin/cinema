@@ -1,0 +1,72 @@
+<svg xmlns="http://www.w3.org/2000/svg">
+  <symbol id="eye" viewBox="0 0 20 13" fill="none">
+    <path
+      d="M9.97333 0C5.44 0 1.56853 2.6762 0 6.45386C1.56853 10.2315 5.44 12.9077 9.97333 12.9077C14.5067 12.9077 18.3781 10.2315 19.9467 6.45386C18.3781 2.6762 14.5067 0 9.97333 0ZM9.97333 10.7564C7.47093 10.7564 5.44 8.82887 5.44 6.45386C5.44 4.07884 7.47093 2.15129 9.97333 2.15129C12.4757 2.15129 14.5067 4.07884 14.5067 6.45386C14.5067 8.82887 12.4757 10.7564 9.97333 10.7564ZM9.97333 3.87231C8.46827 3.87231 7.25333 5.0254 7.25333 6.45386C7.25333 7.88231 8.46827 9.0354 9.97333 9.0354C11.4784 9.0354 12.6933 7.88231 12.6933 6.45386C12.6933 5.0254 11.4784 3.87231 9.97333 3.87231Z"
+      fill="currentColor"
+    />
+  </symbol>
+
+  <symbol id="eye-closed" viewBox="0 0 20 13" fill="none">
+    <path
+      d="M2 3.9C6 11.9 14 11.9 18 3.9"
+      stroke="currentColor"
+      stroke-width="1.6"
+      stroke-linecap="round"
+    />
+    <path
+      d="M4.17 7.58L1.67 10.08"
+      stroke="currentColor"
+      stroke-width="1.6"
+      stroke-linecap="round"
+    />
+    <path
+      d="M15.83 7.58L18.33 10.08"
+      stroke="currentColor"
+      stroke-width="1.6"
+      stroke-linecap="round"
+    />
+    <path
+      d="M10 9.75V12.25"
+      stroke="currentColor"
+      stroke-width="1.6"
+      stroke-linecap="round"
+    />
+  </symbol>
+
+  <symbol id="login" viewBox="0 0 24 24" fill="none">
+    <path
+      d="M8 4H18C19.1 4 20 4.9 20 6V18C20 19.1 19.1 20 18 20H8"
+      stroke="currentColor"
+      stroke-width="2"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+    />
+
+    <path
+      d="M3 12H15"
+      stroke="currentColor"
+      stroke-width="2"
+      stroke-linecap="round"
+    />
+
+    <path
+      d="M11 8L15 12L11 16"
+      stroke="currentColor"
+      stroke-width="2"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+    />
+  </symbol>
+
+  <symbol id="house" viewBox="0 0 24 24">
+    <path
+      d="m21.762 8.786-7-6.68C13.266.68 10.734.68 9.238 2.106l-7 6.681A4.017 4.017 0 0 0 1 11.68V20c0 1.654 1.346 3 3 3h5.005a1 1 0 0 0 1-1L10 15c0-1.103.897-2 2-2 1.09 0 1.98.877 2 1.962L13.999 22a1 1 0 0 0 1 1H20c1.654 0 3-1.346 3-3v-8.32a4.021 4.021 0 0 0-1.238-2.894ZM21 20a1 1 0 0 1-1 1h-4.001L16 15c0-2.206-1.794-4-4-4s-4 1.794-4 4l.005 6H4a1 1 0 0 1-1-1v-8.32c0-.543.226-1.07.62-1.447l7-6.68c.747-.714 2.013-.714 2.76 0l7 6.68c.394.376.62.904.62 1.448V20Z"
+    />
+  </symbol>
+
+  <symbol id="house-filled" viewBox="0 0 24 24">
+    <path
+      d="m21.762 8.786-7-6.68a3.994 3.994 0 0 0-5.524 0l-7 6.681A4.017 4.017 0 0 0 1 11.68V19c0 2.206 1.794 4 4 4h3.005a1 1 0 0 0 1-1v-7.003a2.997 2.997 0 0 1 5.994 0V22a1 1 0 0 0 1 1H19c2.206 0 4-1.794 4-4v-7.32a4.02 4.02 0 0 0-1.238-2.894Z"
+    />
+  </symbol>
+</svg>

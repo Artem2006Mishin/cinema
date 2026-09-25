@@ -12,9 +12,16 @@ export default defineConfig([
 		},
 
 		rules: {
-			"no-unused-vars": "warn", // неиспользуемые переменные
-			semi: ["warn", "always"], // требовать ;
-			quotes: ["warn", "double"], // требовать двойные кавычки
+			"no-unused-vars": "warn",
+			semi: ["warn", "always"],
+			quotes: ["warn", "double"],
+		},
+	},
+
+	{
+		files: ["server/**/*.{js,mjs,cjs}"],
+		languageOptions: {
+			globals: globals.node,
 		},
 	},
 ]);
