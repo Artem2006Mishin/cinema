@@ -11,14 +11,14 @@ export default class CinemaService {
 
 	async getCinemaData({ token, movieId }) {
 		return this.#apiService.get({
-			resource: `${BASE_URL.DEVELOPMENT}/${RESOURCE_URL.CINEMA}/${movieId}`,
+			resource: `${BASE_URL.PRODUCTION}/${RESOURCE_URL.CINEMA}/${movieId}`,
 			token: token,
 		});
 	}
 
 	async saveCinemaData({ token, payload, movieId }) {
 		return this.#apiService.put({
-			resource: `${BASE_URL.DEVELOPMENT}/${RESOURCE_URL.CINEMA}/${movieId}`,
+			resource: `${BASE_URL.PRODUCTION}/${RESOURCE_URL.CINEMA}/${movieId}`,
 			payload: payload,
 			token: token,
 		});

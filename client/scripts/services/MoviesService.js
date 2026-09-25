@@ -11,7 +11,7 @@ export default class MoviesService {
 
 	async getMovies({ token }) {
 		return this.#apiService.get({
-			resource: `${BASE_URL.DEVELOPMENT}/${RESOURCE_URL.MOVIES}`,
+			resource: `${BASE_URL.PRODUCTION}/${RESOURCE_URL.MOVIES}`,
 			token: token,
 		});
 	}

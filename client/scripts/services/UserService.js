@@ -13,7 +13,7 @@ export default class UserService {
 		invariant(credentials, "UserService: credentials is not found");
 		return this.#apiService.post({
 			payload: credentials,
-			resource: `${BASE_URL.DEVELOPMENT}/${RESOURCE_URL.REGISTER}`,
+			resource: `${BASE_URL.PRODUCTION}/${RESOURCE_URL.REGISTER}`,
 		});
 	}
 
@@ -21,21 +21,21 @@ export default class UserService {
 		invariant(credentials, "UserService: credentials is not found");
 		return this.#apiService.post({
 			payload: credentials,
-			resource: `${BASE_URL.DEVELOPMENT}/${RESOURCE_URL.LOGIN}`,
+			resource: `${BASE_URL.PRODUCTION}/${RESOURCE_URL.LOGIN}`,
 		});
 	}
 
 	async getUserData({ token, userId }) {
 		invariant(userId, "UserService: userId is not found");
 		return this.#apiService.get({
-			resource: `${BASE_URL.DEVELOPMENT}/${RESOURCE_URL.USERS}/${userId}`,
+			resource: `${BASE_URL.PRODUCTION}/${RESOURCE_URL.USERS}/${userId}`,
 			token: token,
 		});
 	}
 
 	async editUserData({ token, newData, userId }) {
 		return this.#apiService.patch({
-			resource: `${BASE_URL.DEVELOPMENT}/${RESOURCE_URL.USERS}/${userId}`,
+			resource: `${BASE_URL.PRODUCTION}/${RESOURCE_URL.USERS}/${userId}`,
 			payload: newData,
 			token: token,
 		});
