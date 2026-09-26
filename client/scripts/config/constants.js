@@ -11,7 +11,8 @@ export const RESOURCE_URL = {
 	USERS: "users",
 };
 
-export const CLOUDINARY_URL = import.meta.env.VITE_CLOUDINARY_URL;
+export const CLOUDINARY_URL =
+	"https://api.cloudinary.com/v1_1/zrffkqjg/image/upload";
 
 export const STORAGE = {
 	MOVIE_ID: "movieId",
