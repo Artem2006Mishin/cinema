@@ -1,6 +1,6 @@
 export const BASE_URL = {
 	DEVELOPMENT: "http://localhost:3000",
-	PRODUCTION: "https://cinema-63xn.onrender.com",
+	PRODUCTION: import.meta.env.VITE_API_URL,
 };
 
 export const RESOURCE_URL = {
