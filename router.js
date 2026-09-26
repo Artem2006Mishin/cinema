@@ -27,7 +27,6 @@ export default function createRouter() {
 
 			const isPublic = PUBLIC_ROUTES.includes(match.route.path);
 
-			console.log(isPublic);
 			// клиентская проверка
 			if (!user) {
 				if (!isPublic) {
