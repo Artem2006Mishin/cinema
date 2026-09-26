@@ -12,7 +12,7 @@ import {
 	getFooterTemplate,
 } from "@layouts/pageLayout.template.js";
 
-const PUBLIC_ROUTES = ["cinema/login", "cinema/register"];
+const PUBLIC_ROUTES = ["login", "register"];
 
 export default function createRouter() {
 	const router = new Navigo("/");
