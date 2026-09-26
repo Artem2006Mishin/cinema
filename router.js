@@ -15,7 +15,7 @@ import {
 const PUBLIC_ROUTES = ["cinema/login", "cinema/register"];
 
 export default function createRouter() {
-	const router = new Navigo("/cinema");
+	const router = new Navigo("/");
 	const container = document.querySelector("[data-js='page-main']");
 	let currentPage = null;
 
