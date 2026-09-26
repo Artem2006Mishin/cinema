@@ -12,7 +12,7 @@ import {
 	getFooterTemplate,
 } from "@layouts/pageLayout.template.js";
 
-const PUBLIC_ROUTES = ["login", "register"];
+const PUBLIC_ROUTES = ["cinema/login", "cinema/register"];
 
 export default function createRouter() {
 	const router = new Navigo("/cinema");
@@ -24,8 +24,10 @@ export default function createRouter() {
 	router.hooks({
 		async before(done, match) {
 			const user = services.storage.get(STORAGE.USER);
+
 			const isPublic = PUBLIC_ROUTES.includes(match.route.path);
 
+			console.log(isPublic);
 			// клиентская проверка
 			if (!user) {
 				if (!isPublic) {
